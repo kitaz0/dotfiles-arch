@@ -1,0 +1,14 @@
+# VS Code extension IDs. Install with: bash install-vscode-extensions.sh
+dtoplak.vscode-glsllint
+jdinhlife.gruvbox
+llvm-vs-code-extensions.vscode-clangd
+ms-vscode.cmake-tools
+ms-vscode.cpp-devtools
+ms-vscode.cpptools-extension-pack
+ms-vscode.cpptools-themes
+ms-vscode.hexeditor
+slevesque.shader
+tamasfe.even-better-toml
+twxs.cmake
+usernamehw.errorlens
+vadimcn.vscode-lldb

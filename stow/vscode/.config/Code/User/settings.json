@@ -1,0 +1,10 @@
+{
+  "workbench.colorTheme": "Gruvbox Dark Soft",
+  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "cmake.debugConfig": {
+    "type": "lldb",
+    "console": "internalConsole"
+  },
+  "cmake.buildBeforeRun": true
+}

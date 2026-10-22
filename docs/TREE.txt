@@ -34,10 +34,13 @@ hyprland-setup/
 |   |-- test-startup.py
 |   |-- test-ui-contracts.py
 |   |-- test-verification.py
+|   |-- test-vscode.py
 |   |-- TESTING.md
 |   |-- THEME.md
 |   |-- TREE.txt
 |   `-- TROUBLESHOOTING.md
+|-- extensions/
+|   `-- vscode.txt
 |-- licenses/
 |   `-- LazyVim-starter-LICENSE
 |-- session/
@@ -155,12 +158,18 @@ hyprland-setup/
 |   |           |-- lazy-lock.json
 |   |           |-- lazyvim.json
 |   |           `-- stylua.toml
-|   `-- starship/
+|   |-- starship/
+|   |   `-- .config/
+|   |       `-- starship.toml
+|   `-- vscode/
 |       `-- .config/
-|           `-- starship.toml
+|           `-- Code/
+|               `-- User/
+|                   `-- settings.json
 |-- .gitignore
 |-- apply-config.sh
 |-- install-deps.sh
+|-- install-vscode-extensions.sh
 |-- packages.tsv
 |-- packages.txt
 |-- README.md

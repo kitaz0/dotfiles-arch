@@ -6,7 +6,7 @@ Start with the [project README](../README.md) for commands and shortcuts.
 | --- | --- |
 | [Installation](INSTALLATION.md) | First login, updates and SDDM session name |
 | [Deployment](DEPLOYMENT.md) | Stow links, Git history, backups and unlinking |
-| [Applications](APPLICATIONS.md) | Kitty, Starship and LazyVim |
+| [Applications](APPLICATIONS.md) | Kitty, Starship, LazyVim and VS Code |
 | [Keybindings](KEYBINDINGS.md) | Complete shortcut reference |
 | [Quick settings](QUICK-SETTINGS.md) | Device pages, popup behavior and clipboard |
 | [Theme](THEME.md) | Dark preference, Gruvbox palette and icons |

@@ -9,13 +9,13 @@ bash apply-config.sh --dry-run
 bash apply-config.sh --apply
 ```
 
-Default packages: `desktop kitty starship nvim`. Add `--desktop-only` to select just `desktop`. The wrapper uses `stow --dir=stow --target="$HOME" --no-folding --restow`. It seeds local Fcitx settings separately and backs up files that would block links. Reapplying correct links creates no backup.
+Default packages: `desktop kitty starship nvim vscode`. Add `--desktop-only` to select just `desktop`. The wrapper uses `stow --dir=stow --target="$HOME" --no-folding --restow`. It seeds local Fcitx settings separately and backs up files that would block links. Reapplying correct links creates no backup.
 
 For plain GNU Stow usage, use absolute paths for the package and target directories:
 
 ```bash
-stow --dir="$PWD/stow" --target="$HOME" --no-folding --simulate desktop kitty starship nvim
-stow --dir="$PWD/stow" --target="$HOME" --no-folding desktop kitty starship nvim
+stow --dir="$PWD/stow" --target="$HOME" --no-folding --simulate desktop kitty starship nvim vscode
+stow --dir="$PWD/stow" --target="$HOME" --no-folding desktop kitty starship nvim vscode
 ```
 
 Direct Stow usage refuses conflicting ordinary files and does not seed Fcitx settings. Use the wrapper for first installation/migration. Avoid `stow --adopt`: it changes repository files from home contents without the import review used by this project.

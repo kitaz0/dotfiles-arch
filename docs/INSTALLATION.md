@@ -11,7 +11,7 @@ Target: Arch Linux, GNU Stow, systemd, SDDM, Hyprland 0.56.2 (Lua API) and Quick
 5. Run `bash apply-config.sh --apply`. Existing conflicting files, including old copy-installed Graphite files, move to the printed backup directory outside the repository. Stow then creates file symlinks with `--no-folding`, keeping directories real.
 6. Run `bash verify-setup.sh`. Run it again inside Graphite for compositor/session checks.
 
-All scripts support `--help`. The default scope includes desktop, Kitty, Starship and LazyVim. Use `--desktop-only` consistently for package review, linking and verification to omit application configurations and Starship/LazyVim dependencies. It does not remove apps installed by an earlier full installation. Shell startup files, keys, packages and service enablement remain untouched.
+All scripts support `--help`. The default scope includes desktop, Kitty, Starship, LazyVim and VS Code. Use `--desktop-only` consistently for package review, linking and verification to omit application configurations and Starship/LazyVim dependencies. It does not remove apps installed by an earlier full installation. VS Code itself is installed separately; extension downloads are an explicit step described in [Applications](APPLICATIONS.md). Shell startup files, keys, packages and service enablement remain untouched.
 
 Fcitx settings are copied from `defaults/fcitx5/` only when missing; existing settings are preserved. These writable files remain outside the Stow packages so input-method saves cannot change repository defaults. The installer refuses symlinked destination parent directories; resolve custom linked dotfile layouts manually before applying.
 
@@ -27,7 +27,7 @@ For an existing entry, compare it with `cmp session/graphite-hyprland.desktop /u
 
 ## Customization and updates
 
-Desktop configs live at `~/.config/graphite/`, helpers at `~/.local/lib/graphite/`, and ordinary app configs at `~/.config/kitty/`, `~/.config/starship.toml` and `~/.config/nvim/`. Their symlinks point into `stow/` in this checkout.
+Desktop configs live at `~/.config/graphite/`, helpers at `~/.local/lib/graphite/`, and ordinary app configs at `~/.config/kitty/`, `~/.config/starship.toml`, `~/.config/nvim/` and `~/.config/Code/User/settings.json`. Their symlinks point into `stow/` in this checkout.
 
 Edit through either path, review `git diff`, and commit the configuration. Pull updates with a clean Git working tree, then refresh links:
 

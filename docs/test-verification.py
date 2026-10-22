@@ -25,7 +25,7 @@ with tempfile.TemporaryDirectory(dir=checks, prefix='verify-') as folder:
     installed = home / '.local/lib/graphite/helper.sh'
     installed.parent.mkdir(parents=True)
     installed.symlink_to(helper_source)
-    for package, rel in [('kitty', '.config/kitty/kitty.conf'), ('starship', '.config/starship.toml'), ('nvim', '.config/nvim/init.lua')]:
+    for package, rel in [('kitty', '.config/kitty/kitty.conf'), ('starship', '.config/starship.toml'), ('nvim', '.config/nvim/init.lua'), ('vscode', '.config/Code/User/settings.json')]:
         source = project / 'stow' / package / rel
         source.parent.mkdir(parents=True, exist_ok=True)
         source.write_text('fixture config\n')
@@ -40,7 +40,7 @@ with tempfile.TemporaryDirectory(dir=checks, prefix='verify-') as folder:
         path = commands / name
         path.write_text('#!/usr/bin/env bash\n'+body+'\n')
         path.chmod(0o700)
-    for name in ['hyprpolkitagent', 'stow', 'starship', 'qs', 'systemd-run', 'dbus-update-activation-environment', 'busctl', 'pgrep',
+    for name in ['hyprpolkitagent', 'stow', 'starship', 'code', 'qs', 'systemd-run', 'dbus-update-activation-environment', 'busctl', 'pgrep',
                  'start-hyprland', 'Hyprland', 'hyprctl', 'kitty', 'dolphin', 'waybar', 'fuzzel',
                  'swaybg', 'hyprlock', 'hypridle', 'swaync', 'swaync-client', 'cliphist', 'wl-copy',
                  'wl-paste', 'wpctl', 'udisksctl', 'udevadm', 'notify-send', 'grim', 'slurp', 'satty',

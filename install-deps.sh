@@ -42,6 +42,7 @@ if [[ -n $info ]]; then
             '  --help, -h            Show this help' \
             '' \
             'Example: bash install-deps.sh --review --optional=obs' \
+            'VS Code settings are included; install your chosen VS Code build separately.' \
             'Package review requires Arch/pacman. This script never installs packages or changes services.'
     else
         awk -F '\t' '

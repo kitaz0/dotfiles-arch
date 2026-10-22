@@ -37,7 +37,7 @@ with tempfile.TemporaryDirectory(dir=checks,prefix='stow-') as directory:
     box=Path(directory); project=box/'project'; home=box/'home'; commands=box/'bin'
     for p in [project,home,commands]:p.mkdir()
     shutil.copyfile(root/'apply-config.sh',project/'apply-config.sh')
-    for package,rel in [('desktop','.config/graphite/example.conf'),('kitty','.config/kitty/kitty.conf'),('starship','.config/starship.toml'),('nvim','.config/nvim/init.lua')]:
+    for package,rel in [('desktop','.config/graphite/example.conf'),('kitty','.config/kitty/kitty.conf'),('starship','.config/starship.toml'),('nvim','.config/nvim/init.lua'),('vscode','.config/Code/User/settings.json')]:
         p=project/'stow'/package/rel;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(package+' config\n')
     for rel in ['config','profile','conf/classicui.conf']:
         p=project/'defaults/fcitx5'/rel;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('default\n')
@@ -55,6 +55,7 @@ with tempfile.TemporaryDirectory(dir=checks,prefix='stow-') as directory:
     assert snapshot(home)==before and snapshot(project)==sources
     run('--apply')
     assert original.is_symlink() and original.read_text()=='kitty config\n'
+    assert (home/'.config/Code/User/settings.json').is_symlink()
     backups=list((home/'.local/state/graphite/backups').glob('before-stow-*'))
     assert len(backups)==1 and (backups[0]/'.config/kitty/kitty.conf').read_text()=='original kitty\n'
     assert keys.read_text()=='fixture private data stays outside source\n'
@@ -68,6 +69,7 @@ with tempfile.TemporaryDirectory(dir=checks,prefix='stow-') as directory:
     assert not original.exists() and profile.read_text()=='local writable settings\n' and keys.is_file()
     run('--apply','--desktop-only')
     assert (home/'.config/graphite/example.conf').is_symlink() and not original.exists()
+    assert not (home/'.config/Code/User/settings.json').exists()
     run('--unstow','--apply','--desktop-only')
     original.parent.rmdir();external=box/'external';external.mkdir();original.parent.symlink_to(external)
     run('--apply',code=1);assert not any(external.iterdir())

@@ -1,6 +1,6 @@
 # Graphite / Gruvbox
 
-An Arch Linux desktop and dotfiles setup for **Hyprland 0.56.2 and Quickshell 0.3.2**, with GNU Stow, Kitty, Starship and Neovim/LazyVim. Git tracks configuration history; Stow links the checkout into your home directory. No driver changes or automatic package installation.
+An Arch Linux desktop and dotfiles setup for **Hyprland 0.56.2 and Quickshell 0.3.2**, with GNU Stow, Kitty, Starship, Neovim/LazyVim and VS Code settings. Git tracks configuration history; Stow links the checkout into your home directory. No driver changes or automatic package installation.
 
 ## Install
 
@@ -16,7 +16,7 @@ bash apply-config.sh --apply
 bash verify-setup.sh
 ```
 
-The default installs **desktop, Kitty, Starship and LazyVim configurations**. To leave your ordinary app configs alone, add `--desktop-only` to all three scripts. The desktop still needs the Kitty executable; its settings are then your own.
+The default installs **desktop, Kitty, Starship, LazyVim and VS Code configurations**. To leave your ordinary app configs alone, add `--desktop-only` to all three scripts. The desktop still needs the Kitty executable; its settings are then your own.
 
 Existing files occupying selected destinations are moved to `~/.local/state/graphite/backups/` before Stow creates links. The installer never adopts home files into Git. Review the preview: application configs affect those apps in every desktop session. Add the separate login entry using [Installation](docs/INSTALLATION.md), then select **Hyprland (Graphite/Gruvbox)**.
 
@@ -38,6 +38,8 @@ Most edits are live through the symlinks; reload or restart affected application
 | `bash apply-config.sh --help` | Linking, backup and unstow options |
 | `bash apply-config.sh --unstow` | Preview removal of the selected links |
 | `bash apply-config.sh --unstow --apply` | Remove links; keep backups and local state |
+| `bash install-vscode-extensions.sh --dry-run` | Preview the VS Code extension list without downloads |
+| `bash install-vscode-extensions.sh` | Install missing listed extensions with the VS Code CLI |
 | `bash install-deps.sh --help` | Package review and optional categories |
 | `bash install-deps.sh --review --optional=obs` | Include optional OBS dependencies |
 | `bash verify-setup.sh --verbose` | Full link/config/session diagnostics |
@@ -68,4 +70,4 @@ Use the [testing checklist](docs/TESTING.md) to verify the setup on your hardwar
 
 ## Project structure
 
-`stow/desktop/`, `stow/kitty/`, `stow/starship/` and `stow/nvim/` mirror home-directory destinations. `defaults/fcitx5/` supplies local writable seeds. `session/` holds the login entry; `licenses/` retains third-party notices. Root scripts review packages, invoke Stow and verify the setup. [Documentation index](docs/README.md) · [Public file tree](docs/TREE.txt).
+`stow/desktop/`, `stow/kitty/`, `stow/starship/`, `stow/nvim/` and `stow/vscode/` mirror home-directory destinations. `defaults/fcitx5/` supplies local writable seeds. `extensions/vscode.txt` lists VS Code extensions for the separate installer. `session/` holds the login entry; `licenses/` retains third-party notices. Root scripts review packages, invoke Stow and verify the setup. [Documentation index](docs/README.md) · [Public file tree](docs/TREE.txt).

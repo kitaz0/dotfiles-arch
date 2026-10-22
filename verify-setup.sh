@@ -10,7 +10,7 @@ for arg in "$@"; do
         --help|-h)
             echo 'Usage: bash verify-setup.sh [--verbose] [--desktop-only]'
             echo 'Read-only Stow links, dependencies, config and session checks.'
-            echo 'Default: desktop, Kitty, Starship and LazyVim. --desktop-only omits application packages.'
+            echo 'Default: desktop, Kitty, Starship, LazyVim and VS Code. --desktop-only omits application packages.'
             echo '--verbose prints full diagnostics. Exit 1: required check failed; exit 2: invalid arguments.'
             exit 0 ;;
         *) echo "Unknown option: $arg (see --help)" >&2; exit 2 ;;
@@ -61,7 +61,7 @@ if (( ${#missing[@]} )); then report WARN 'Optional feature dependencies' "Unava
 else report PASS 'Optional feature dependencies'; fi
 file_errors=() script_errors=() link_errors=() total=0
 packages=(desktop)
-(( desktop_only )) || packages+=(kitty starship nvim)
+(( desktop_only )) || packages+=(kitty starship nvim vscode)
 for package in "${packages[@]}"; do
     if [[ ! -d $base/stow/$package ]]; then file_errors+=("Missing source package: $package"); continue; fi
     while IFS= read -r -d '' source; do
@@ -92,6 +92,9 @@ if (( ! desktop_only )); then
     for cmd in starship nvim; do command -v "$cmd" >/dev/null || apps_missing+=("$cmd"); done
     if (( ${#apps_missing[@]} )); then report FAIL 'Application dependencies' "Missing: ${apps_missing[*]}"
     else report PASS 'Application dependencies'; fi
+    if command -v code >/dev/null; then report PASS 'VS Code CLI available (extension checks are separate)'
+    else report WARN 'VS Code CLI unavailable' 'Install Microsoft VS Code separately to use the Code/User settings package.'; fi
+    report SKIP 'VS Code extensions: run bash install-vscode-extensions.sh --check separately'
     if command -v nvim >/dev/null; then
         version=$(nvim --version 2>&1)
         if [[ $version =~ NVIM[[:space:]]v([0-9]+)\.([0-9]+)\.([0-9]+) ]] && \
@@ -109,6 +112,7 @@ if command -v timeout >/dev/null; then
     fi
     if command -v zsh >/dev/null; then probe 'Zsh configuration parses' FAIL zsh -n "$HOME/.config/graphite/zsh/graphite.zsh"; fi
     if command -v jq >/dev/null; then
+        if (( ! desktop_only )); then probe 'VS Code settings JSON parses' FAIL jq empty "$HOME/.config/Code/User/settings.json"; fi
         probe 'Bar, notification and palette JSON parses' FAIL jq empty "$HOME/.config/graphite/waybar/config.jsonc" "$HOME/.config/graphite/swaync/config.json" "$HOME/.local/share/graphite/palette.json"
     fi
     if [[ -x /usr/lib/qt6/bin/qmllint ]]; then
