@@ -1,0 +1,9 @@
+* { font-family: "Noto Sans"; font-size: 13px; }
+.control-center, .notification { background: #282828; color: #ebdbb2; border: 1px solid #665c54; border-radius: 7px; }
+.notification-content { padding: 10px; }
+.summary { font-weight: bold; color: #b8bb26; }
+.body { color: #ebdbb2; }
+button { background: #504945; color: #ebdbb2; border-radius: 5px; }
+button:hover { background: #665c54; }
+.widget-title { color: #b8bb26; margin: 12px; }
+.widget-dnd { margin: 8px 12px; }

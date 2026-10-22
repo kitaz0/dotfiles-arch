@@ -1,0 +1,33 @@
+@define-color bg #282828;
+@define-color surface #3c3836;
+@define-color fg #ebdbb2;
+@define-color accent #b8bb26;
+* { font-family: "Noto Sans", "JetBrainsMono Nerd Font"; font-size: 12px; min-height: 0; border: none; border-radius: 0; }
+window#waybar { background: transparent; color: @fg; }
+.modules-left, .modules-center, .modules-right { background: @bg; border: 1px solid #665c54; border-radius: 9px; padding: 0 4px; }
+#workspaces button { padding: 2px 8px; color: #a89984; background: transparent; }
+#workspaces button.active { color: @accent; background: @surface; border-radius: 6px; }
+#workspaces button.urgent { color: #fb4934; }
+#window { padding: 0 8px; color: #a89984; }
+#network, #bluetooth, #wireplumber, #backlight, #custom-displays, #custom-clipboard, #custom-notifications {
+    font-family: "JetBrainsMono Nerd Font"; font-size: 18px;
+    min-width: 22px; padding: 0 7px; border-radius: 6px;
+}
+#network.wifi, #network.ethernet, #bluetooth.connected { color: @accent; }
+#network.disconnected, #network.disabled, #bluetooth.off, #bluetooth.disabled, #bluetooth.no-controller, #wireplumber.muted { color: #a89984; }
+#battery { font-family: "JetBrainsMono Nerd Font"; font-size: 18px; min-width: 48px; padding: 0 8px; }
+#battery.warning { color: #fabd2f; }
+#battery.critical { color: #fb4934; }
+#battery.charging, #battery.full, #battery.plugged { color: @accent; }
+#language { padding: 0 7px; font-weight: 600; }
+#tray { padding: 0 7px; }
+#clock { font-feature-settings: "tnum"; padding: 0 10px; }
+tooltip { background: @surface; border: 1px solid #665c54; border-radius: 7px; color: @fg; }
+
+/* Keep hover rules after state colors. No keyboard grab may cover the bar. */
+#workspaces button:hover, #window:hover, #network:hover, #bluetooth:hover,
+#wireplumber:hover, #backlight:hover, #custom-displays:hover, #custom-clipboard:hover,
+#custom-notifications:hover, #battery:hover, #language:hover, #clock:hover, #tray:hover {
+    background: @surface; color: @accent; border-radius: 6px;
+}
+#tray > .passive:hover, #tray > .active:hover, #tray > .needs-attention:hover { background: @surface; }

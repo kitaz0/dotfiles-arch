@@ -1,0 +1,167 @@
+hyprland-setup/
+|-- defaults/
+|   `-- fcitx5/
+|       |-- conf/
+|       |   `-- classicui.conf
+|       |-- config
+|       `-- profile
+|-- docs/
+|   |-- APPLICATIONS.md
+|   |-- ARCHITECTURE.md
+|   |-- audit.py
+|   |-- BLUETOOTH.md
+|   |-- DEPLOYMENT.md
+|   |-- DISPLAYS.md
+|   |-- INSTALLATION.md
+|   |-- JAPANESE.md
+|   |-- KEYBINDINGS.md
+|   |-- OBS.md
+|   |-- QUICK-SETTINGS.md
+|   |-- QUICKSHELL-COMPATIBILITY.md
+|   |-- README.md
+|   |-- test-bar-tools.py
+|   |-- test-bindings.lua
+|   |-- test-bluetooth.py
+|   |-- test-bugfixes.py
+|   |-- test-deployment.py
+|   |-- test-desktop-controls.py
+|   |-- test-displays.py
+|   |-- test-input-method.py
+|   |-- test-monitors.lua
+|   |-- test-packages.py
+|   |-- test-popup-state.js
+|   |-- test-quick-settings.py
+|   |-- test-startup.py
+|   |-- test-ui-contracts.py
+|   |-- test-verification.py
+|   |-- TESTING.md
+|   |-- THEME.md
+|   |-- TREE.txt
+|   `-- TROUBLESHOOTING.md
+|-- licenses/
+|   `-- LazyVim-starter-LICENSE
+|-- session/
+|   `-- graphite-hyprland.desktop
+|-- stow/
+|   |-- desktop/
+|   |   |-- .config/
+|   |   |   |-- graphite/
+|   |   |   |   |-- dolphin/
+|   |   |   |   |   |-- dolphinrc
+|   |   |   |   |   `-- kdeglobals
+|   |   |   |   |-- fuzzel/
+|   |   |   |   |   `-- fuzzel.ini
+|   |   |   |   |-- hypr/
+|   |   |   |   |   |-- graphite/
+|   |   |   |   |   |   |-- appearance.lua
+|   |   |   |   |   |   |-- autostart.lua
+|   |   |   |   |   |   |-- bindings.lua
+|   |   |   |   |   |   |-- input.lua
+|   |   |   |   |   |   |-- monitors.lua
+|   |   |   |   |   |   `-- rules.lua
+|   |   |   |   |   |-- hypridle.conf
+|   |   |   |   |   |-- hyprland.lua
+|   |   |   |   |   `-- hyprlock.conf
+|   |   |   |   |-- quick-settings/
+|   |   |   |   |   |-- ActionButton.qml
+|   |   |   |   |   |-- arrange.svg
+|   |   |   |   |   |-- AudioPage.qml
+|   |   |   |   |   |-- BluetoothPage.qml
+|   |   |   |   |   |-- BrightnessModel.qml
+|   |   |   |   |   |-- BrightnessPage.qml
+|   |   |   |   |   |-- Caption.qml
+|   |   |   |   |   |-- ClipboardPage.qml
+|   |   |   |   |   |-- DisplayChoices.qml
+|   |   |   |   |   |-- extend.svg
+|   |   |   |   |   |-- external.svg
+|   |   |   |   |   |-- LevelSlider.qml
+|   |   |   |   |   |-- mirror.svg
+|   |   |   |   |   |-- PopupState.js
+|   |   |   |   |   |-- RadioSwitch.qml
+|   |   |   |   |   |-- shell.qml
+|   |   |   |   |   |-- single.svg
+|   |   |   |   |   `-- WifiPage.qml
+|   |   |   |   |-- swaync/
+|   |   |   |   |   |-- config.json
+|   |   |   |   |   `-- style.css
+|   |   |   |   |-- waybar/
+|   |   |   |   |   |-- config.jsonc
+|   |   |   |   |   `-- style.css
+|   |   |   |   `-- zsh/
+|   |   |   |       `-- graphite.zsh
+|   |   |   `-- xdg-desktop-portal/
+|   |   |       `-- graphite-portals.conf
+|   |   `-- .local/
+|   |       |-- lib/
+|   |       |   `-- graphite/
+|   |       |       |-- appearance.sh
+|   |       |       |-- audio-menu.sh
+|   |       |       |-- bluetooth-menu.sh
+|   |       |       |-- brightness.sh
+|   |       |       |-- clipboard.sh
+|   |       |       |-- connectivity-menu.sh
+|   |       |       |-- display-menu.sh
+|   |       |       |-- dolphin.sh
+|   |       |       |-- input-method.sh
+|   |       |       |-- launch-app.sh
+|   |       |       |-- lock.sh
+|   |       |       |-- network-menu.sh
+|   |       |       |-- power-menu.sh
+|   |       |       |-- quick-settings-control.sh
+|   |       |       |-- quick-settings.sh
+|   |       |       |-- record.sh
+|   |       |       |-- resume.sh
+|   |       |       |-- screenshot.sh
+|   |       |       |-- session-services.sh
+|   |       |       |-- session-start.sh
+|   |       |       |-- shortcuts.sh
+|   |       |       |-- start-session.sh
+|   |       |       |-- terminal.sh
+|   |       |       |-- usb-notify.sh
+|   |       |       |-- volume.sh
+|   |       |       `-- waybar.sh
+|   |       `-- share/
+|   |           |-- color-schemes/
+|   |           |   `-- Gruvbox.colors
+|   |           `-- graphite/
+|   |               |-- optional/
+|   |               |   |-- fontconfig/
+|   |               |   |   `-- graphite.conf
+|   |               |   |-- gtk-3.0/
+|   |               |   |   `-- settings.ini
+|   |               |   |-- gtk-4.0/
+|   |               |   |   `-- settings.ini
+|   |               |   `-- kdeglobals
+|   |               |-- palette.json
+|   |               `-- wallpaper.png
+|   |-- kitty/
+|   |   `-- .config/
+|   |       `-- kitty/
+|   |           `-- kitty.conf
+|   |-- nvim/
+|   |   `-- .config/
+|   |       `-- nvim/
+|   |           |-- lua/
+|   |           |   |-- config/
+|   |           |   |   |-- autocmds.lua
+|   |           |   |   |-- keymaps.lua
+|   |           |   |   |-- lazy.lua
+|   |           |   |   `-- options.lua
+|   |           |   `-- plugins/
+|   |           |       |-- colorscheme.lua
+|   |           |       `-- example.lua
+|   |           |-- .neoconf.json
+|   |           |-- init.lua
+|   |           |-- lazy-lock.json
+|   |           |-- lazyvim.json
+|   |           `-- stylua.toml
+|   `-- starship/
+|       `-- .config/
+|           `-- starship.toml
+|-- .gitignore
+|-- apply-config.sh
+|-- install-deps.sh
+|-- packages.tsv
+|-- packages.txt
+|-- README.md
+`-- verify-setup.sh

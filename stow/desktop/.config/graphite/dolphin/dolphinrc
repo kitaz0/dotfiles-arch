@@ -1,0 +1,3 @@
+[General]
+TerminalApplication[$e]="$HOME/.local/lib/graphite/terminal.sh"
+TerminalService=

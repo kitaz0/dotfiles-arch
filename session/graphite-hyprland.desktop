@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Hyprland (Graphite/Gruvbox)
+Comment=Isolated Hyprland with the Graphite desktop configuration
+Exec=/bin/sh -c ~/.local/lib/graphite/start-session.sh
+TryExec=start-hyprland
+Type=Application
+DesktopNames=Graphite;Hyprland;

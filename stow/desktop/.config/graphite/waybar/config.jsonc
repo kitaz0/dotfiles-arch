@@ -1,0 +1,143 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "spacing": 2,
+  "margin-top": 6,
+  "margin-left": 8,
+  "margin-right": 8,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "hyprland/language",
+    "tray",
+    "network",
+    "bluetooth",
+    "wireplumber",
+    "backlight",
+    "custom/clipboard",
+    "custom/displays",
+    "battery",
+    "custom/notifications"
+  ],
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "all-outputs": false
+  },
+  "hyprland/window": {
+    "max-length": 18,
+    "separate-outputs": true
+  },
+  "battery": {
+    "format": "{icon} <span size=\"9000\">{capacity}%</span>",
+    "format-charging": "{icon} ⚡ <span size=\"9000\">{capacity}%</span>",
+    "format-plugged": "{icon} · <span size=\"9000\">{capacity}%</span>",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "states": {
+      "warning": 25,
+      "critical": 12
+    },
+    "tooltip-format": "Battery: {capacity}%\n{timeTo}\nPower: {power:.1f} W",
+    "tooltip-format-charging": "Charging | {capacity}%\n{timeTo}\nPower: {power:.1f} W",
+    "tooltip-format-discharging": "On battery | {capacity}%\n{timeTo}\nPower: {power:.1f} W",
+    "tooltip-format-full": "Fully charged | {capacity}%\n{timeTo}\nPower: {power:.1f} W",
+    "tooltip-format-plugged": "Plugged in | {capacity}%\n{timeTo}\nPower: {power:.1f} W",
+    "tooltip-format-not-charging": "Not charging | {capacity}%\n{timeTo}\nPower: {power:.1f} W",
+    "interval": 10,
+    "format-full": "{icon} ✓ <span size=\"9000\">{capacity}%</span>",
+    "format-not-charging": "{icon} · <span size=\"9000\">{capacity}%</span>",
+    "align": 0.5,
+    "justify": "center"
+  },
+  "clock": {
+    "format": "{:%m/%d/%Y  %I:%M %p}",
+    "locale": "C",
+    "tooltip-format": "{:%A, %B %d, %Y}"
+  },
+  "tray": {
+    "icon-size": 20,
+    "spacing": 8
+  },
+  "custom/notifications": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh notifications",
+    "on-click-right": "swaync-client -d"
+  },
+  "hyprland/language": {
+    "format": "{shortDescription}",
+    "format-en": "US",
+    "format-de": "DE",
+    "format-ja": "JP",
+    "tooltip-format": "{long}",
+    "on-click": "hyprctl switchxkblayout all next"
+  },
+  "modules-center": [
+    "clock"
+  ],
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "",
+    "format-linked": "",
+    "format-disconnected": "",
+    "format-disabled": "",
+    "rfkill": true,
+    "interval": 5,
+    "tooltip-format-wifi": "{essid}\nSignal {signalStrength}% · {ipaddr}\nReceive {bandwidthDownBytes} · Send {bandwidthUpBytes}",
+    "tooltip-format-ethernet": "{ifname} · {ipaddr}\nReceive {bandwidthDownBytes} · Send {bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Network disconnected · Open Wi-Fi settings",
+    "tooltip-format-disabled": "Wi-Fi disabled · Open settings",
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh wifi"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-connected": "",
+    "format-off": "",
+    "format-disabled": "",
+    "format-no-controller": "",
+    "tooltip-format": "Bluetooth: {status}",
+    "tooltip-format-connected": "{controller_alias}\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-no-controller": "No Bluetooth controller",
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh bluetooth"
+  },
+  "wireplumber": {
+    "format": "{icon}",
+    "format-muted": "",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
+    "tooltip-format": "{node_name}\nVolume {volume}%",
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh audio",
+    "on-click-right": "bash ~/.local/lib/graphite/volume.sh mute",
+    "on-scroll-up": "bash ~/.local/lib/graphite/volume.sh up",
+    "on-scroll-down": "bash ~/.local/lib/graphite/volume.sh down"
+  },
+  "backlight": {
+    "format": "",
+    "tooltip-format": "Brightness {percent}%",
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh brightness",
+    "on-scroll-up": "bash ~/.local/lib/graphite/brightness.sh up",
+    "on-scroll-down": "bash ~/.local/lib/graphite/brightness.sh down"
+  },
+  "custom/displays": {
+    "format": "",
+    "tooltip-format": "Display arrangement · Super+Shift+P",
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh displays"
+  },
+  "custom/clipboard": {
+    "format": "",
+    "tooltip-format": "Clipboard history",
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh clipboard"
+  }
+}

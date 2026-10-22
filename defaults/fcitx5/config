@@ -1,0 +1,10 @@
+[Hotkey/TriggerKeys]
+0=Control+space
+1=Zenkaku_Hankaku
+
+[Hotkey/ActivateKeys]
+0=Hiragana_Katakana
+
+[Behavior]
+ActiveByDefault=False
+ShareInputState=No

@@ -1,0 +1,99 @@
+# Package purposes
+
+Default review includes desktop and application dependencies. --desktop-only omits
+Starship/LazyVim dependencies; --minimal selects essential packages in that scope.
+Optional/development categories require explicit review. No automatic package or
+service changes are made.
+
+essential [base] bash: script interpreter; existing base
+essential [base] coreutils: file operations, mktemp, date, sleep
+essential [base] findutils: deployment traversal
+essential [base] grep: diagnostic filtering
+essential [base] sed: line ending repair
+essential [base] gawk: manifest category review
+essential [base] util-linux: flock and login/session tools
+essential [base] procps-ng: foreign agent/watcher diagnostics
+essential [base] systemd: user service supervision and logind
+essential [base] dbus: session bus, busctl integration via systemd
+essential [base] pacman: reviewed package commands
+essential [base] git: configuration history and plugin downloads
+essential [base] stow: GNU Stow symlink deployment
+essential [desktop] hyprland: compositor and watchdog launcher
+essential [desktop] kitty: terminal
+optional [shell] zsh: opt-in prompt customization; never changes login shell
+essential [desktop] dolphin: KDE default file manager
+essential [desktop] waybar: compact bar
+essential [desktop] fuzzel: launcher and menus
+essential [desktop] swaybg: static local wallpaper
+essential [desktop] hyprlock: lock screen
+essential [desktop] hypridle: idle and pre-suspend lock integration
+essential [desktop] hyprpolkitagent: graphical authentication
+essential [desktop] swaync: notification daemon and history
+recommended [capture] grim: PNG capture
+recommended [capture] slurp: region picker
+recommended [capture] satty: annotation
+recommended [capture] wf-recorder: supervised quick recording
+optional [obs] obs-studio: screen/window/audio recording
+recommended [capture] ffmpeg: software encoder and ffprobe validation
+essential [clipboard] cliphist: persistent text and image history
+essential [clipboard] wl-clipboard: clipboard read/write and watchers
+essential [integration] xdg-desktop-portal: portal broker
+essential [integration] xdg-desktop-portal-hyprland: Wayland screen/window capture backend
+essential [integration] xdg-desktop-portal-gtk: fallback portals
+optional [kde-chooser] xdg-desktop-portal-kde: optional KDE portal file chooser; retain existing Plasma installation
+essential [integration] udisks2: Dolphin removable storage mounting
+essential [integration] polkit: mount authorization
+essential [integration] xdg-utils: file associations
+essential [integration] glib2: GSettings diagnostics
+essential [integration] libnotify: notify-send popup client
+essential [audio] pipewire: media transport
+essential [audio] pipewire-audio: audio support; inspect existing stack first
+essential [audio] pipewire-pulse: PulseAudio compatibility; inspect conflicts first
+essential [audio] wireplumber: existing PipeWire session manager and wpctl
+recommended [audio] pavucontrol: graphical audio routing
+recommended [audio] libpulse: pactl client for popup device selection through existing pipewire-pulse
+recommended [dolphin-theme] plasma-integration: KDE Qt platform theme for Graphite-only Dolphin palette; already present with Plasma
+recommended [audio] playerctl: media keys
+recommended [laptop] brightnessctl: backlight controls
+essential [theme] breeze: Qt style and cursor
+essential [theme] breeze-icons: KDE dark icons
+optional [application-theme] breeze-gtk: GTK3 theme; GTK4 coverage may differ
+essential [theme] noto-fonts: interface font
+essential [theme] ttf-jetbrains-mono-nerd: terminal font and glyphs
+essential [theme] fontconfig: font cache and aliases
+essential [graphics] mesa: Intel/AMD OpenGL; existing NVIDIA driver untouched
+essential [bar] jq: Hardware-adaptive Waybar configuration and JSON diagnostics
+development [diagnostics] pciutils: lspci hardware identification
+development [diagnostics] mesa-utils: GL diagnostics
+development [diagnostics] libva-utils: vainfo capability inspection
+optional [intel-encoding] libva-intel-driver: legacy Intel VA-API; verify GPU support before use
+optional [filesystems] dosfstools: FAT check/repair, not needed to mount
+optional [filesystems] exfatprogs: exFAT check/repair, not needed for kernel mounting
+optional [filesystems] ntfs-3g: optional NTFS userspace fallback; kernel ntfs3 may suffice
+optional [network-ui] networkmanager: native Quickshell Wi-Fi plus nmcli radio and nmtui enterprise setup; existing NetworkManager only
+development [checks] shellcheck: optional static shell analysis
+development [checks] lua: optional Lua syntax parser
+recommended [displays] wdisplays: graphical monitor positioning, mode, scale and enable/disable controls
+development [diagnostics] wev: inspect the keysym sent by a laptop display-switch key
+recommended [bluetooth] bluez: Bluetooth daemon; preserve existing service and pairing state
+recommended [bluetooth] bluez-utils: bluetoothctl for popup controls and diagnostics
+recommended [bluetooth] bluedevil: KDE standalone Bluetooth pairing dialog and settings module
+recommended [bluetooth] kde-cli-tools: kcmshell6 for advanced Bluetooth settings
+essential [desktop] quickshell: Quickshell 0.3.2 native device APIs and on-demand Qt Quick popup; no extra service
+recommended [japanese] fcitx5: input method framework; preserve existing instance
+recommended [japanese] fcitx5-mozc: Japanese romaji/kana and kanji conversion
+recommended [japanese] fcitx5-gtk: GTK input module for application-specific XWayland fallback
+recommended [japanese] fcitx5-qt: Qt input method integration
+recommended [japanese] fcitx5-configtool: optional graphical customization of the Graphite input profile
+recommended [japanese] noto-fonts-cjk: Japanese glyph coverage
+recommended [theme] gsettings-desktop-schemas: standard portal dark-mode preference schema
+essential [apps] starship: Gruvbox shell prompt; initialize from your shell configuration
+essential [apps] neovim: LazyVim editor configuration (Neovim >= 0.11.2)
+recommended [apps] ripgrep: LazyVim text search
+recommended [apps] fd: LazyVim file discovery
+recommended [apps] fzf: LazyVim fuzzy finder
+recommended [apps] tree-sitter-cli: LazyVim syntax parser compilation
+recommended [apps] gcc: compiler for editor plugins and syntax parsers
+recommended [apps] make: build tool for editor plugins
+recommended [apps] curl: plugin download support
+recommended [apps] unzip: language tooling extraction
