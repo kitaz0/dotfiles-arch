@@ -16,7 +16,36 @@ network_manager() {
     command -v nmcli >/dev/null && systemctl is-active --quiet NetworkManager.service || fail 'Wi-Fi controls require your existing NetworkManager service.'
 }
 percent() { [[ ${1:-} =~ ^[0-9]{1,3}$ ]] && (( 10#$1 <= 100 )); }
+power_profile_service() {
+    command -v powerprofilesctl >/dev/null || return 1
+    local service owner
+    for service in org.freedesktop.UPower.PowerProfiles net.hadess.PowerProfiles; do
+        owner=$(busctl --system --timeout=2s call org.freedesktop.DBus /org/freedesktop/DBus \
+            org.freedesktop.DBus NameHasOwner s "$service" 2>/dev/null) || continue
+        [[ $owner != 'b true' ]] || return 0
+    done
+    return 1
+}
 case ${1:-} in
+    power-profiles)
+        active=; profiles=()
+        if power_profile_service; then
+            active=$(timeout 2s powerprofilesctl get) || fail 'Cannot read the active power profile.'
+            raw=$(timeout 2s powerprofilesctl list) || fail 'Cannot list power profiles.'
+            while IFS= read -r line; do
+                if [[ $line =~ ^[[:space:]]*\*?[[:space:]]*(power-saver|balanced|performance):[[:space:]]*$ ]]; then
+                    profiles+=("${BASH_REMATCH[1]}")
+                fi
+            done <<< "$raw"
+        fi
+        printf '%s\n' "${profiles[@]}" | jq -Rs --arg active "$active" \
+            '{active:$active,profiles:(split("\n")|map(select(length>0)))}'
+        ;;
+    power-profile)
+        case ${2:-} in power-saver|balanced|performance) ;; *) fail 'Invalid power profile.' ;; esac
+        power_profile_service || fail 'No active power profile service is available.'
+        timeout 5s powerprofilesctl set "$2"
+        ;;
     backlight)
         raw=$(brightnessctl -c backlight -m info 2>/dev/null) || raw=
         while IFS=, read -r device class current value maximum; do

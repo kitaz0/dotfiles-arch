@@ -33,8 +33,8 @@ if [[ -n $info ]]; then
         printf '%s\n' \
             'Usage: bash install-deps.sh [--review|--dry-run] [SELECTION] [--desktop-only]' \
             '' \
-            'Default: desktop plus Kitty, Starship and LazyVim dependencies.' \
-            '  --desktop-only        Omit Starship/LazyVim dependencies' \
+            'Default: desktop plus Kitty, Starship, LazyVim, Fastfetch and btop dependencies.' \
+            '  --desktop-only        Omit application-only dependencies' \
             '  --minimal             Essential packages only' \
             '  --optional=CATEGORY   Default packages plus one optional/development category' \
             '  --with-optional       All categories; review carefully before installing' \
@@ -42,6 +42,8 @@ if [[ -n $info ]]; then
             '  --help, -h            Show this help' \
             '' \
             'Example: bash install-deps.sh --review --optional=obs' \
+            'Power profiles are recommended only for a system battery; existing power managers are preserved.' \
+            'Hyprsunset is recommended on laptops and desktops; its filter starts off.' \
             'VS Code settings are included; install your chosen VS Code build separately.' \
             'Package review requires Arch/pacman. This script never installs packages or changes services.'
     else
@@ -64,12 +66,31 @@ command -v pacman >/dev/null || { echo 'Run this review script on Arch Linux' >&
 if [[ -n $extra && $extra != all && $extra != minimal ]] && ! awk -F '\t' -v category="$extra" '($1 == "optional" || $1 == "development") && $2 == category { found=1 } END { exit !found }' "$base/packages.tsv"; then
     echo "Unknown optional category: $extra (use --list-optional)" >&2; exit 2
 fi
-missing=(); unavailable=0; selected=0
+has_battery=false
+for supply in /sys/class/power_supply/*; do
+    [[ -r $supply/type && $(<"$supply/type") == Battery ]] || continue
+    [[ ! -r $supply/scope || $(<"$supply/scope") != Device ]] || continue
+    has_battery=true
+    break
+done
+missing=(); unavailable=0; selected=0; power_profiles_selected=false
 while IFS=$'\t' read -r status category package purpose; do
     [[ $status != \#* && -n $status ]] || continue
     if (( desktop_only )) && [[ $category == apps ]]; then continue; fi
     if [[ $extra == minimal && $status != essential ]]; then continue; fi
     if [[ ( $status == optional || $status == development ) && $extra != all && $extra != "$category" ]]; then continue; fi
+    if [[ $package == power-profiles-daemon ]]; then
+        if ! $has_battery; then echo 'Skipped power-profiles-daemon: no system battery detected.'; continue; fi
+        existing_manager=
+        for manager in tlp tlp-pd tuned tuned-ppd auto-cpufreq system76-power; do
+            if pacman -Q "$manager" >/dev/null 2>&1; then existing_manager=$manager; break; fi
+        done
+        if [[ -n $existing_manager ]]; then
+            echo "Preserving $existing_manager; skipped power-profiles-daemon."
+            continue
+        fi
+        power_profiles_selected=true
+    fi
     selected=$((selected+1))
     if ! pacman -Si "$package" >/dev/null 2>&1; then echo "UNAVAILABLE: $package; verify current official repository name" >&2; unavailable=1; continue; fi
     if pacman -Q "$package" >/dev/null 2>&1; then echo "Present: $package ($purpose)"; else missing+=("$package"); echo "Missing: $package ($purpose)"; fi
@@ -97,4 +118,8 @@ echo 'Regular user runs the following command with sudo for package changes:'
 printf 'sudo pacman -Syu --needed'
 if (( ${#missing[@]} )); then printf ' %q' "${missing[@]}"; fi
 printf '\n'
+if $power_profiles_selected; then
+    echo 'After installing, enable the shared system power profile service:'
+    echo 'sudo systemctl enable --now power-profiles-daemon.service'
+fi
 echo 'No packages installed; no services changed; no configuration applied.'

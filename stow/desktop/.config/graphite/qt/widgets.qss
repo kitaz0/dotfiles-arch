@@ -1,0 +1,33 @@
+/* Application-local Gruvbox styling for the Qt input settings window. */
+QWidget {
+    background-color: #282828;
+    color: #ebdbb2;
+    selection-background-color: #fe8019;
+    selection-color: #282828;
+    font-family: "Noto Sans";
+    font-size: 10pt;
+}
+QAbstractItemView, QLineEdit, QTextEdit, QPlainTextEdit, QComboBox, QSpinBox {
+    background-color: #3c3836;
+    alternate-background-color: #504945;
+    border: 1px solid #665c54;
+    border-radius: 4px;
+    padding: 4px;
+}
+QAbstractItemView::item { padding: 4px; }
+QAbstractItemView::item:selected { background-color: #fe8019; color: #282828; }
+QPushButton, QToolButton {
+    background-color: #3c3836;
+    border: 1px solid #665c54;
+    border-radius: 5px;
+    padding: 6px 10px;
+}
+QPushButton:hover, QToolButton:hover { background-color: #504945; }
+QPushButton:pressed, QToolButton:pressed { background-color: #665c54; }
+QPushButton:focus, QLineEdit:focus, QComboBox:focus { border-color: #fe8019; }
+QWidget:disabled { color: #a89984; }
+QTabBar::tab { background-color: #3c3836; padding: 7px 12px; }
+QTabBar::tab:selected { background-color: #fe8019; color: #282828; }
+QGroupBox { border: 1px solid #665c54; border-radius: 5px; margin-top: 12px; padding-top: 10px; }
+QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; }
+QToolTip { background-color: #3c3836; color: #ebdbb2; border: 1px solid #665c54; }

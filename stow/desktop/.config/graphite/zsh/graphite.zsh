@@ -3,4 +3,4 @@
 [[ -o interactive ]] || return
 [[ -z ${GRAPHITE_PROMPT_LOADED:-} ]] || return
 typeset -g GRAPHITE_PROMPT_LOADED=1
-PROMPT='%F{#b8bb26}%n%f %F{#a89984}%~%f %(?.%F{#b8bb26}.%F{#fb4934})?%f '
+PROMPT='%F{#fe8019}%n%f %F{#a89984}%~%f %(?.%F{#fe8019}.%F{#fb4934})?%f '

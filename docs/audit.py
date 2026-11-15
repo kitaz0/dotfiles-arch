@@ -33,7 +33,7 @@ for p in [*root.glob('*.sh'), *(root/'stow/desktop').rglob('*.sh')]:
         assert not line.startswith('\t') and (len(line)-len(line.lstrip(' '))) % 4 == 0, (p,line)
 log('PASS: shell syntax, formatting, LF text and common private-key/token signatures.')
 
-packages = ['desktop', 'kitty', 'starship', 'nvim', 'vscode']
+packages = ['desktop', 'kitty', 'starship', 'nvim', 'vscode', 'fastfetch', 'btop']
 owned = {}
 for package in packages:
     folder = root/'stow'/package
@@ -56,7 +56,7 @@ log(f'PASS: {len(owned)} unique Stow destinations, executable helpers, local Fci
 desktop = root/'stow/desktop'
 config = desktop/'.config/graphite'
 helpers = desktop/'.local/lib/graphite'
-for path in [config/'waybar/config.jsonc', config/'swaync/config.json', desktop/'.local/share/graphite/palette.json', *(root/'stow/nvim').rglob('*.json'), root/'stow/vscode/.config/Code/User/settings.json']:
+for path in [config/'waybar/config.jsonc', config/'swaync/config.json', config/'power/defaults.json', desktop/'.local/share/graphite/palette.json', *(root/'stow/nvim').rglob('*.json'), root/'stow/vscode/.config/Code/User/settings.json', root/'stow/fastfetch/.config/fastfetch/config.jsonc']:
     json.loads(path.read_text())
 for path in (root/'stow').rglob('*.toml'): tomllib.loads(path.read_text())
 ET.parse(desktop/'.local/share/graphite/optional/fontconfig/graphite.conf')

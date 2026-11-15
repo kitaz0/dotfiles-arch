@@ -1,7 +1,7 @@
 -- Graphite:Hyprland is intentional desktop-specific portal routing, not a wrong desktop.
 hl.config({
     general = { gaps_in = 5, gaps_out = 12, border_size = 2,
-        col = { active_border = { colors = {"rgba(b8bb26ff)"}, angle = 0 }, inactive_border = "rgba(665c54ff)" },
+        col = { active_border = { colors = {"rgba(fe8019ff)", "rgba(fabd2fff)"}, angle = 45 }, inactive_border = "rgba(665c54ff)" },
         layout = "dwindle", resize_on_border = true, allow_tearing = false },
     decoration = { rounding = 7, active_opacity = 1.0, inactive_opacity = 1.0,
         blur = { enabled = false }, shadow = { enabled = false } },

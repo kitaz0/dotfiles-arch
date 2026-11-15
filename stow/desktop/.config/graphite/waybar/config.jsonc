@@ -11,12 +11,12 @@
     "hyprland/window"
   ],
   "modules-right": [
-    "hyprland/language",
+    "custom/input-method",
     "tray",
     "network",
     "bluetooth",
     "wireplumber",
-    "backlight",
+    "custom/brightness",
     "custom/clipboard",
     "custom/displays",
     "battery",
@@ -55,7 +55,8 @@
     "format-full": "{icon} ✓ <span size=\"9000\">{capacity}%</span>",
     "format-not-charging": "{icon} · <span size=\"9000\">{capacity}%</span>",
     "align": 0.5,
-    "justify": "center"
+    "justify": "center",
+    "on-click": "bash ~/.local/lib/graphite/quick-settings.sh power"
   },
   "clock": {
     "format": "{:%m/%d/%Y  %I:%M %p}",
@@ -64,21 +65,39 @@
   },
   "tray": {
     "icon-size": 20,
-    "spacing": 8
+    "spacing": 2,
+    "ignore-list": ["Fcitx"]
   },
   "custom/notifications": {
-    "format": "",
+    "exec": "swaync-client --skip-wait --subscribe-waybar",
+    "return-type": "json",
+    "restart-interval": 2,
+    "exec-on-event": false,
+    "format": "{icon}",
+    "format-icons": {
+      "none": "",
+      "notification": "",
+      "inhibited-none": "",
+      "inhibited-notification": "",
+      "dnd-none": "",
+      "dnd-notification": "",
+      "dnd-inhibited-none": "",
+      "dnd-inhibited-notification": ""
+    },
     "tooltip": false,
     "on-click": "bash ~/.local/lib/graphite/quick-settings.sh notifications",
     "on-click-right": "swaync-client -d"
   },
-  "hyprland/language": {
-    "format": "{shortDescription}",
-    "format-en": "US",
-    "format-de": "DE",
-    "format-ja": "JP",
-    "tooltip-format": "{long}",
-    "on-click": "hyprctl switchxkblayout all next"
+  "custom/input-method": {
+    "exec": "bash ~/.local/lib/graphite/input-method.sh watch",
+    "return-type": "json",
+    "restart-interval": 2,
+    "exec-on-event": false,
+    "align": 0.5,
+    "justify": "center",
+    "format": "{}",
+    "on-click": "bash ~/.local/lib/graphite/input-method.sh toggle",
+    "on-click-right": "bash ~/.local/lib/graphite/input-method.sh configure"
   },
   "modules-center": [
     "clock"
@@ -111,11 +130,11 @@
   },
   "wireplumber": {
     "format": "{icon}",
-    "format-muted": "",
+    "format-muted": "󰝟",
     "format-icons": [
-      "",
-      "",
-      ""
+      "󰕿",
+      "󰖀",
+      "󰕾"
     ],
     "tooltip-format": "{node_name}\nVolume {volume}%",
     "on-click": "bash ~/.local/lib/graphite/quick-settings.sh audio",
@@ -123,15 +142,15 @@
     "on-scroll-up": "bash ~/.local/lib/graphite/volume.sh up",
     "on-scroll-down": "bash ~/.local/lib/graphite/volume.sh down"
   },
-  "backlight": {
-    "format": "",
-    "tooltip-format": "Brightness {percent}%",
+  "custom/brightness": {
+    "format": "󰖨",
+    "tooltip-format": "Brightness and Night Light",
     "on-click": "bash ~/.local/lib/graphite/quick-settings.sh brightness",
     "on-scroll-up": "bash ~/.local/lib/graphite/brightness.sh up",
     "on-scroll-down": "bash ~/.local/lib/graphite/brightness.sh down"
   },
   "custom/displays": {
-    "format": "",
+    "format": "󰍺",
     "tooltip-format": "Display arrangement · Super+Shift+P",
     "on-click": "bash ~/.local/lib/graphite/quick-settings.sh displays"
   },

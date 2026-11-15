@@ -17,11 +17,17 @@ case $1 in
 esac
 ''',newline='\n');mock.chmod(0o700)
     env=os.environ.copy();env.pop('BASH_ENV',None);env.update(PATH=path+':/usr/bin:/bin',PACMAN_CALLS=path+'/calls')
+    supplies=box/'supplies';supplies.mkdir()
+    runner=box/'install-deps.sh'
+    supplies_path=path+'/supplies'
+    quoted_supplies="'"+supplies_path.replace("'", "'\\''")+"'"
+    runner.write_text((root/'install-deps.sh').read_text().replace('/sys/class/power_supply',quoted_supplies),newline='\n')
+    (box/'packages.tsv').write_bytes((root/'packages.tsv').read_bytes())
     def run(arg,extra=None,code=0):
         e=env.copy();e.update(extra or {})
         (box/'calls').unlink(missing_ok=True)
         args=arg if isinstance(arg,list) else [arg]
-        p=subprocess.run([bash,str(root/'install-deps.sh'),*args],env=e,cwd=root,text=True,capture_output=True)
+        p=subprocess.run([bash,str(runner),*args],env=e,cwd=root,text=True,capture_output=True)
         assert p.returncode==code,p.stdout+p.stderr
         return p.stdout+p.stderr
     for flag in ['--help','-h']:
@@ -67,5 +73,19 @@ esac
     assert 'REVIEW REQUIRED' in result and 'sudo pacman' not in result
     assert 'REVIEW REQUIRED' in run('--review',{'ALTERNATIVE':'ibus'},code=1)
     assert 'REVIEW REQUIRED' in run('--review',{'ALTERNATIVE':'fcitx'},code=1)
+    assert 'Missing: hyprsunset' in run('--review')
+    assert 'Missing: power-profiles-daemon' not in run('--review')
+    peripheral=supplies/'mouse';peripheral.mkdir()
+    (peripheral/'type').write_text('Battery\n');(peripheral/'scope').write_text('Device\n')
+    assert 'Missing: power-profiles-daemon' not in run('--with-optional')
+    battery=supplies/'BAT0';battery.mkdir()
+    (battery/'type').write_text('Battery\n');(battery/'scope').write_text('System\n')
+    result=run('--review')
+    assert 'Missing: power-profiles-daemon' in result and 'enable --now power-profiles-daemon.service' in result
+    for manager in ['tlp','tlp-pd','tuned','tuned-ppd','auto-cpufreq','system76-power']:
+        result=run('--review',{'ALTERNATIVE':manager})
+        assert 'Preserving '+manager in result and 'Missing: power-profiles-daemon' not in result
+        assert 'enable --now power-profiles-daemon' not in result
+        assert 'Missing: hyprsunset' in result
     print('PASS packages: local help/list without pacman calls, manifest-complete optional/development list, tiers, combined/reordered review and optional flags, installed/missing OBS, rejected trailing/conflicting arguments, unknown/unavailable packages and alternative audio stack (pacman mocked)')
 if not list(checks.iterdir()): checks.rmdir()

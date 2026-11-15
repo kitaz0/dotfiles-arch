@@ -6,6 +6,8 @@
   "timeout": 6,
   "timeout-low": 4,
   "timeout-critical": 0,
+  "notification-grouping": false,
+  "hide-on-action": true,
   "widgets": [
     "title",
     "dnd",

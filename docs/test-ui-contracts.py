@@ -4,9 +4,9 @@ import json, xml.etree.ElementTree as ET
 root=Path(__file__).resolve().parent.parent
 config=json.loads((root/'stow/desktop/.config/graphite/waybar/config.jsonc').read_text(encoding='utf-8'))
 assert 'custom/quick-settings' not in config
-assert set(['network','bluetooth','wireplumber','backlight','custom/displays']) <= set(config['modules-right'])
+assert set(['network','bluetooth','wireplumber','custom/brightness','custom/displays']) <= set(config['modules-right'])
 assert config['modules-center']==['clock']
-for module,page in [('network','wifi'),('bluetooth','bluetooth'),('wireplumber','audio'),('backlight','brightness'),('custom/displays','displays')]:
+for module,page in [('network','wifi'),('bluetooth','bluetooth'),('wireplumber','audio'),('custom/brightness','brightness'),('custom/displays','displays')]:
     assert config[module]['on-click'].endswith('quick-settings.sh '+page)
 assert '{essid}' in config['network']['tooltip-format-wifi']
 assert '{bandwidthDownBytes}' in config['network']['tooltip-format-wifi']
@@ -18,7 +18,7 @@ assert '\u2713' in battery['format-full']
 for state in ['charging','full','plugged','not-charging']:
     assert '{icon}' in battery['format-'+state] and '{capacity}' in battery['format-'+state]
 assert battery['justify']=='center' and battery['align']==0.5
-assert 'hyprland/language' in config['modules-right']
+assert 'hyprland/language' not in config['modules-right']
 qml=(root/'stow/desktop/.config/graphite/quick-settings/shell.qml').read_text(encoding='utf-8')
 assert qml.startswith('pragma ComponentBehavior: Bound\n')
 assert 'id: action\n' not in qml and 'id: deviceAction' in qml
@@ -42,7 +42,8 @@ assert 'Overview {' not in qml and 'text: "Back"' not in qml
 assert 'NumberAnimation { id: pageFade; target: pageLoader;' in qml
 assert 'onLoaded:' in qml and 'pageFade.restart()' in qml
 assert 'tabButton' not in qml
-assert 'Accessible.name: "Back to audio"' in qml and 'onClicked: root.navigate("audio")' in qml
+assert '"Back to battery" : "Back to audio"' in qml
+assert 'onClicked: root.navigate(root.page === "power-settings" ? "power" : "audio")' in qml
 assert 'onOpenMixer: root.navigate("mixer")' in qml and 'AudioPage { streams: true }' in qml
 assert 'Accessible.name: "Wi-Fi power"' in qml and 'Accessible.name: "Bluetooth power"' in qml
 switch=(root/'stow/desktop/.config/graphite/quick-settings/RadioSwitch.qml').read_text(encoding='utf-8')
@@ -64,8 +65,11 @@ assert 'onClicked: row.modelData.audio.muted' in audio[start:end] and 'LevelSlid
 assert 'brightnessPage; BrightnessPage' in qml
 brightness_page=(root/'stow/desktop/.config/graphite/quick-settings/BrightnessPage.qml').read_text()
 assert 'root.model.edit(amount)' in brightness_page and 'root.model.release()' in brightness_page
-assert 'custom/input-method' not in config['modules-right']
-assert config['hyprland/language']['format-en']=='US' and config['hyprland/language']['format-ja']=='JP'
+assert config['modules-right'].count('custom/input-method')==1
+assert config['tray']['ignore-list']==['Fcitx']
+assert config['custom/input-method']['exec'].endswith('input-method.sh watch')
+assert 'interval' not in config['custom/input-method']
+assert config['custom/input-method']['exec-on-event'] is False
 assert 'PreferTextIcon=True' in (root/'defaults/fcitx5/conf/classicui.conf').read_text()
 bindings=(root/'stow/desktop/.config/graphite/hypr/graphite/bindings.lua').read_text()
 assert 'script("SUPER + SHIFT + P", "quick-settings.sh", "displays",' in bindings
@@ -82,9 +86,9 @@ assert 'else if (root.page === "displays") Qt.quit();' in qml
 for name in ['extend','mirror','single','external','arrange']:
     ET.parse(root/'stow/desktop/.config/graphite/quick-settings'/f'{name}.svg')
 palette=json.loads((root/'stow/desktop/.local/share/graphite/palette.json').read_text())
-assert palette['background']=='#282828' and palette['accent']=='#b8bb26'
+assert palette['background']=='#282828' and palette['accent']=='#fe8019'
 assert 'font: control.font' in (root/'stow/desktop/.config/graphite/quick-settings/ActionButton.qml').read_text()
-print('PASS static UI contracts: direct settings icons, US clock, centered battery states, modal dismissal with accessible bar, same-window page transition, native audio, independent brightness, live Fcitx tray, visual monitors and Gruvbox palette.')
+print('PASS static UI contracts: direct settings icons, US clock, centered battery states, modal dismissal with accessible bar, same-window page transition, native audio, independent brightness, single input-mode indicator, visual monitors and Gruvbox palette.')
 print('SKIP QML compilation/rendering and live input: these source assertions do not validate Qt imports, signals, focus or hardware behavior.')
 
 assert "custom/clipboard" in config["modules-right"]
@@ -96,7 +100,7 @@ clipboard=(root/'stow/desktop/.config/graphite/quick-settings/ClipboardPage.qml'
 assert 'currentItem.clicked()' not in clipboard and 'root.restoreEntry(entry.modelData.id)' in clipboard
 assert 'root.restoreCurrent()' in clipboard and 'import Quickshell\n' not in clipboard
 assert 'const pageItem = item as Item;' in qml and 'pageItem.forceActiveFocus()' in qml
-assert r'\uf026' in audio and r'\uf6a9' not in audio
+assert r'\uf6a9' not in audio
 for component in ['AudioPage.qml','BluetoothPage.qml','shell.qml']:
     source=(root/'stow/desktop/.config/graphite/quick-settings'/component).read_text(encoding='utf-8')
     assert source.count('// qmllint disable ') == source.count('// qmllint enable ')

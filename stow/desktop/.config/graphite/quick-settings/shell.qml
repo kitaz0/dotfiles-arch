@@ -156,13 +156,13 @@ ShellRoot {
                     anchors.fill: parent; anchors.margins: 16; spacing: 12
                     RowLayout {
                         ActionButton {
-                            visible: root.page === "mixer"
+                            visible: root.page === "mixer" || root.page === "power-settings"
                             text: "\uf060"; font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 18
-                            Accessible.name: "Back to audio"
-                            ToolTip.visible: hovered; ToolTip.text: "Back to audio"
-                            onClicked: root.navigate("audio")
+                            Accessible.name: root.page === "power-settings" ? "Back to battery" : "Back to audio"
+                            ToolTip.visible: hovered; ToolTip.text: root.page === "power-settings" ? "Back to battery" : "Back to audio"
+                            onClicked: root.navigate(root.page === "power-settings" ? "power" : "audio")
                         }
-                        Caption { text: root.page === "wifi" ? "Wi-Fi" : root.page === "bluetooth" ? "Bluetooth" : root.page === "audio" ? "Audio" : root.page === "mixer" ? "Application mixer" : root.page === "brightness" ? "Brightness" : root.page === "clipboard" ? "Clipboard" : "Display arrangement"; font.pixelSize: 18; font.bold: true; Layout.fillWidth: true }
+                        Caption { text: root.page === "wifi" ? "Wi-Fi" : root.page === "bluetooth" ? "Bluetooth" : root.page === "audio" ? "Audio" : root.page === "mixer" ? "Application mixer" : root.page === "brightness" ? "Brightness" : root.page === "clipboard" ? "Clipboard" : root.page === "power" ? "Battery and power" : root.page === "power-settings" ? "Power settings" : "Display arrangement"; font.pixelSize: 18; font.bold: true; Layout.fillWidth: true }
                         RadioSwitch {
                             visible: root.page === "wifi"
                             activeState: Networking.wifiEnabled
@@ -187,7 +187,7 @@ ShellRoot {
                         active: popup.primary
                         Layout.fillWidth: true; Layout.fillHeight: true
                         // Page changes replace content, never the window. Live values do not reload it.
-                        sourceComponent: root.page === "wifi" ? wifiPage : root.page === "bluetooth" ? bluetoothPage : root.page === "audio" ? audioPage : root.page === "mixer" ? mixerPage : root.page === "brightness" ? brightnessPage : root.page === "clipboard" ? clipboardPage : displayPage
+                        sourceComponent: root.page === "wifi" ? wifiPage : root.page === "bluetooth" ? bluetoothPage : root.page === "audio" ? audioPage : root.page === "mixer" ? mixerPage : root.page === "brightness" ? brightnessPage : root.page === "clipboard" ? clipboardPage : root.page === "power" ? powerPage : root.page === "power-settings" ? powerSettingsPage : displayPage
                         onLoaded: {
                             pageFade.restart();
                             const pageItem = item as Item;
@@ -195,7 +195,9 @@ ShellRoot {
                         }
                         NumberAnimation { id: pageFade; target: pageLoader; property: "opacity"; from: 0; to: 1; duration: 120; easing.type: Easing.OutCubic }
                         Component { id: clipboardPage; ClipboardPage { helpers: root.helpers } }
-                        Component { id: brightnessPage; BrightnessPage { model: root.brightness } }
+                        Component { id: powerPage; PowerPage { helpers: root.helpers; onOpenSettings: root.navigate("power-settings") } }
+                        Component { id: powerSettingsPage; PowerSettingsPage { helpers: root.helpers } }
+                        Component { id: brightnessPage; BrightnessPage { model: root.brightness; helpers: root.helpers } }
                         Component { id: wifiPage; WifiPage { devices: root.wifiDevices; onAdvanced: root.launch(["bash", root.helpers + "terminal.sh", "-e", "nmtui"]) } }
                         Component { id: bluetoothPage; BluetoothPage { busy: root.busy; onOperation: (method, path) => root.act("bt-operation", method, path); onPairDevice: address => root.launch(["bluedevil-wizard"]) } }
                         Component { id: audioPage; AudioPage { onOpenMixer: root.navigate("mixer") } }

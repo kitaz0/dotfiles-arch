@@ -41,7 +41,7 @@ ColumnLayout {
         textRole: "id"
         Accessible.name: "Reference display"
         onActivated: root.focusChoice(0, 1)
-        palette.button: "#3c3836"; palette.buttonText: "#ebdbb2"; palette.base: "#3c3836"; palette.text: "#ebdbb2"; palette.highlight: "#b8bb26"; palette.highlightedText: "#282828"
+        palette.button: "#3c3836"; palette.buttonText: "#ebdbb2"; palette.base: "#3c3836"; palette.text: "#ebdbb2"; palette.highlight: "#fe8019"; palette.highlightedText: "#282828"
     }
     GridLayout {
         columns: 3; columnSpacing: 8; rowSpacing: 8; Layout.fillWidth: true
@@ -63,7 +63,7 @@ ColumnLayout {
                 enabled: !root.busy && (modelData.mode === "configure" || root.displays.length === 2 && reference.currentIndex >= 0)
                 opacity: enabled ? 1 : 0.4
                 Accessible.name: modelData.title + ". " + modelData.hint
-                background: Rectangle { radius: 9; color: tile.modelData.mode === root.currentMode ? "#504945" : "#3c3836"; border.width: tile.activeFocus ? 3 : 1; border.color: tile.activeFocus || tile.hovered ? "#b8bb26" : "#665c54" }
+                background: Rectangle { radius: 9; color: tile.modelData.mode === root.currentMode ? "#504945" : "#3c3836"; border.width: tile.activeFocus ? 3 : 1; border.color: tile.activeFocus || tile.hovered ? "#fe8019" : "#665c54" }
                 contentItem: ColumnLayout {
                     Image { source: Qt.resolvedUrl(tile.modelData.image); Layout.fillWidth: true; Layout.preferredHeight: 46; fillMode: Image.PreserveAspectFit; mirror: tile.modelData.mode === "left" }
                     Text { text: tile.modelData.title; color: "#ebdbb2"; font.pixelSize: 13; Layout.alignment: Qt.AlignHCenter }

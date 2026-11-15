@@ -51,8 +51,11 @@ echo '{"items":[]}'
         'busctl': 'printf "busctl <%s>\\n" "$@" >> "$EVENTS"; exit "${BT_FAIL:-0}"',
         'swaync-client': 'printf "swaync <%s>\\n" "$@" >> "$EVENTS"',
         'notify-send': 'echo notice >> "$EVENTS"',
-        'flock': 'exit "${LOCK_BUSY:-0}"',
-        'qs': 'printf "qs-command %s\\n" "$1" >> "$EVENTS"; printf "qs <%s>\\n" "$@" >> "$EVENTS"; printf "page %s style %s\\n" "$GRAPHITE_SETTINGS_PAGE" "$QT_QUICK_CONTROLS_STYLE" >> "$EVENTS"',
+        'qs': '''printf "qs-command %s\\n" "$1" >> "$EVENTS"
+printf "qs <%s>\\n" "$@" >> "$EVENTS"
+printf "page %s style %s\\n" "$GRAPHITE_SETTINGS_PAGE" "$QT_QUICK_CONTROLS_STYLE" >> "$EVENTS"
+[[ $1 != ipc ]] || exit "${IPC_EXIT:-1}"
+[[ ! /proc/$$/fd/9 -ef "$XDG_RUNTIME_DIR/graphite-quick-settings.lock" ]] || exit 9''',
     }
     for name, body in commands.items():
         p = box/name
@@ -115,16 +118,27 @@ echo '{"items":[]}'
     assert 'qs <close>' in events and 'swaync <--toggle-panel>' in events
     assert events.index('qs <close>') < events.index('swaync <--toggle-panel>')
     events,_=run(['audio'],launcher=True)
-    assert 'page audio style Basic' in events and 'qs <-p>' in events and 'shell.qml>' in events
+    assert 'page audio style Basic' in events and 'qs <--no-duplicate>' in events and 'qs <-p>' in events and 'shell.qml>' in events
     events,_=run(['brightness'],launcher=True)
     assert 'page brightness style Basic' in events
-    events,_=run(['wifi'],{'LOCK_BUSY':'1'},launcher=True)
+    events,_=run(['power'],launcher=True)
+    assert 'page power style Basic' in events
+    events,_=run(['wifi'],{'IPC_EXIT':'0'},launcher=True)
     assert 'qs <ipc>' in events and 'qs <toggle>' in events and 'qs <wifi>' in events
-    assert 'qs-command -p' not in events
-    events,_=run(['home'],{'LOCK_BUSY':'1'},launcher=True)
+    assert 'qs <--no-duplicate>' not in events
+    events,_=run(['home'],{'IPC_EXIT':'0'},launcher=True)
     assert 'qs <ipc>' in events and 'qs <toggle>' in events
-    events,_=run(['clipboard'],{'LOCK_BUSY':'1'},launcher=True)
+    events,_=run(['clipboard'],{'IPC_EXIT':'0'},launcher=True)
     assert 'qs <ipc>' in events and 'qs <toggle>' in events and 'qs <clipboard>' in events
+    if os.name != 'nt':
+        import fcntl
+        # Reproduce an external settings window retaining the old popup lock.
+        # No Quickshell instance exists, so IPC fails and a new one must start.
+        with (box/'graphite-quick-settings.lock').open('w') as legacy_lock:
+            fcntl.flock(legacy_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            events,_=run(['audio'],launcher=True)
+            assert 'qs <--no-duplicate>' in events
+        print('PASS popup recovery with a real busy legacy lock and no inherited lock descriptor (Quickshell mocked).')
     run(['invalid'],code=2,launcher=True)
     (box/'qs').rename(box/'qs.saved')
     missing=box/'missing.sh'
@@ -134,7 +148,7 @@ echo '{"items":[]}'
 
 config=json.loads((root/'stow/desktop/.config/graphite/waybar/config.jsonc').read_text(encoding='utf-8'))
 assert not any('/slider' in key or key.startswith('group/') for key in config)
-for key in ['network','bluetooth','wireplumber','backlight','custom/displays']:
+for key in ['network','bluetooth','wireplumber','custom/brightness','custom/displays']:
     assert 'quick-settings.sh' in config[key]['on-click']
 print('PASS quick-settings command fixtures: brightness bounds/access failure, volume failure, unavailable hardware, Wi-Fi/Bluetooth guards, literal device names, popup routing and duplicate-launch guard (commands/jq mocked).')
 print('SKIP quick-settings GUI/QML and jq transformation execution: requires installed Qt/Quickshell and jq on Linux. Waybar slider removal checked statically.')

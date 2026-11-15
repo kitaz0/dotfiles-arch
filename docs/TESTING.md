@@ -11,6 +11,7 @@ After entering Graphite:
 1. Run `hyprctl configerrors`; verify monitors, scale, keyboard, touchpad and layout switching.
 2. Open each bar popup; hover/click other icons, Escape, outside-click and reopen. The first outside click must dismiss without activating the app underneath. Check both monitors.
 3. Change volume/brightness with keys and sliders; verify actual state, mute icon, devices and application mixer.
+   Open battery → Settings: check both source tabs, Apply, Defaults and Never. Unplug/reconnect power and verify the selected idle policy changes. Confirm a policy reload preserves an existing locker; test lock-before-suspend enabled and disabled, then restore your preferred settings. Inspect `graphite-power.service` and `graphite-lock.service` after logout from another desktop; both must be inactive. The three performance modes should still agree with `powerprofilesctl get`.
 4. Copy text and an image, restore through the clipboard icon and Super+Shift+V, then paste into suitable apps. Test an empty history and a removed entry.
 5. Open three windows: test focus arrows, workspace-local swap shortcuts and Super+F1 search.
 6. Connect/disconnect Wi-Fi and Bluetooth; test required authentication and unavailable hardware.

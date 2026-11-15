@@ -25,10 +25,10 @@ ColumnLayout {
             placeholderText: "Network password"
             selectByMouse: true
             color: "#ebdbb2"; placeholderTextColor: "#a89984"
-            selectionColor: "#b8bb26"; selectedTextColor: "#282828"
+            selectionColor: "#fe8019"; selectedTextColor: "#282828"
             font.family: "Noto Sans"; font.pixelSize: 13
             padding: 10
-            background: Rectangle { radius: 9; color: "#3c3836"; border.color: password.activeFocus ? "#b8bb26" : "#665c54" }
+            background: Rectangle { radius: 9; color: "#3c3836"; border.color: password.activeFocus ? "#fe8019" : "#665c54" }
             Accessible.name: "Wi-Fi password"
             onAccepted: submit.clicked()
         }
@@ -79,7 +79,7 @@ ColumnLayout {
                             }
                             Caption {
                                 visible: networkRow.modelData.connected
-                                text: "\u2713"; color: "#b8bb26"
+                                text: "\u2713"; color: "#fe8019"
                                 Accessible.name: "Connected network"
                             }
                             ColumnLayout {

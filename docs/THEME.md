@@ -2,6 +2,14 @@
 
 Graphite uses the **Gruvbox Dark palette** for its bar, settings, terminal, launcher, notifications, wallpaper, lock screen and private Dolphin profile. The technical `graphite` paths and service names remain stable for upgrades. The public name is Graphite / Gruvbox.
 
+The primary accent is Gruvbox bright orange (`#fe8019`) for focus, selection, controls and active workspaces. Gruvbox bright yellow (`#fabd2f`) is the secondary accent for connectivity, displays and links; its muted gold (`#d79921`) supplies darker variants. Gruvbox bright purple (`#d3869b`) accents clipboard, notifications and secondary details. The active window border blends orange into gold. Healthy battery values stay green and errors red, preserving their meaning. Kitty's cyan ANSI slots and the editors' aqua highlights use the same yellow/gold pair. Starship adapts the Tokyo Night preset with rounded, progressively darker Gruvbox gray segments, cream text, and small orange Git/prompt accents. VS Code uses Gruvbox Dark Medium to match the `#282828` backgrounds in Kitty, Neovim, btop and the desktop.
+
+The shared palette reference is `stow/desktop/.local/share/graphite/palette.json`. Native applications keep their own theme files; `docs/test-theme.py`, included in the audit, checks their accent roles against that reference. Changing the reference alone does not update application themes: update their native files together and run the audit. There is no login-time rewrite. Fastfetch and btop use the same orange/gold/purple roles; see [Applications](APPLICATIONS.md).
+
+Input-method settings use an application-local Gruvbox stylesheet with Qt's Fusion style. The EN/あ right-click launcher applies it to `fcitx5-config-qt`; it does not alter Plasma's theme. Reopen that window after a theme update.
+
+Power settings use the same locally styled Qt Quick controls and Gruvbox palette as the other Graphite popup pages. They do not launch KDE's power settings or change Plasma's theme.
+
 ## Dark mode
 
 The GTK Settings portal reads `org.gnome.desktop.interface color-scheme`. Application preferences control their appearance independently of the bar colors.

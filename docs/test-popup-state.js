@@ -5,13 +5,16 @@ const vm = require('vm');
 const assert = require('assert/strict');
 const state = vm.createContext({});
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../stow/desktop/.config/graphite/quick-settings/PopupState.js'), 'utf8'), state);
-for (const page of ['wifi', 'bluetooth', 'audio', 'brightness', 'clipboard', 'displays']) {
+for (const page of ['wifi', 'bluetooth', 'audio', 'brightness', 'clipboard', 'displays', 'power']) {
     assert.equal(state.normalize(page), page);
     assert.equal(state.toggle(page, page), '');
 }
 assert.equal(state.normalize('mixer'), 'mixer');
 assert.equal(state.toggle('mixer', 'audio'), '', 'audio bar trigger closes its mixer subpage');
 assert.equal(state.toggle('mixer', 'wifi'), 'wifi');
+assert.equal(state.normalize('power-settings'), 'power-settings');
+assert.equal(state.toggle('power-settings', 'power'), '', 'battery trigger closes its settings subpage');
+assert.equal(state.toggle('power-settings', 'audio'), 'audio');
 assert.equal(state.normalize('audio'), 'audio', 'back navigation returns to devices');
 assert.equal(state.normalize('home'), 'audio');
 assert.equal(state.normalize('invalid'), 'audio');

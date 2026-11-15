@@ -25,7 +25,7 @@ with tempfile.TemporaryDirectory(dir=checks, prefix='verify-') as folder:
     installed = home / '.local/lib/graphite/helper.sh'
     installed.parent.mkdir(parents=True)
     installed.symlink_to(helper_source)
-    for package, rel in [('kitty', '.config/kitty/kitty.conf'), ('starship', '.config/starship.toml'), ('nvim', '.config/nvim/init.lua'), ('vscode', '.config/Code/User/settings.json')]:
+    for package, rel in [('kitty', '.config/kitty/kitty.conf'), ('starship', '.config/starship.toml'), ('nvim', '.config/nvim/init.lua'), ('vscode', '.config/Code/User/settings.json'), ('fastfetch', '.config/fastfetch/config.jsonc'), ('btop', '.config/btop/btop.conf')]:
         source = project / 'stow' / package / rel
         source.parent.mkdir(parents=True, exist_ok=True)
         source.write_text('fixture config\n')

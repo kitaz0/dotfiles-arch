@@ -97,8 +97,10 @@ exit "${RUN_EXIT:-0}"''',
     p=box/'.local/lib/graphite/waybar.sh';p.write_text('#!/usr/bin/env bash\nwaybar\n',newline='\n');p.chmod(0o700)
     p=box/'.local/lib/graphite/usb-notify.sh';p.write_text('#!/usr/bin/env bash\necho "helper usb-notify" >> "$EVENTS"\n',newline='\n');p.chmod(0o700)
     p=box/'.local/lib/graphite/input-method.sh';p.write_text('#!/usr/bin/env bash\necho "helper input-method" >> "$EVENTS"\n',newline='\n');p.chmod(0o700)
+    p=box/'.local/lib/graphite/night-light.sh';p.write_text('#!/usr/bin/env bash\necho "helper night-light" >> "$EVENTS"\n',newline='\n');p.chmod(0o700)
+    p=box/'.local/lib/graphite/power-policy.sh';p.write_text('#!/usr/bin/env bash\necho "helper power-policy" >> "$EVENTS"\n',newline='\n');p.chmod(0o700)
     events=run('session-services.sh',extra={**session,'INVOCATION_ID':'mock'})
-    for name in ['waybar','swaybg','hypridle','swaync','usb-notify','input-method']:
+    for name in ['waybar','swaybg','power-policy','swaync','usb-notify','input-method','night-light']:
         assert 'helper '+name in events
     assert events.count('helper wl-paste')==2 and 'clipboard.sh store' in events
     assert 'systemctl' not in events

@@ -27,13 +27,13 @@ RowLayout {
         background: Rectangle {
             x: slider.leftPadding; y: (slider.height - height) / 2
             width: slider.availableWidth; height: 6; radius: 3; color: "#665c54"
-            Rectangle { width: slider.visualPosition * parent.width; height: 6; radius: 3; color: "#b8bb26" }
+            Rectangle { width: slider.visualPosition * parent.width; height: 6; radius: 3; color: "#fe8019" }
         }
         handle: Rectangle {
             x: slider.leftPadding + slider.visualPosition * (slider.availableWidth - width)
             y: (slider.height - height) / 2
             width: 18; height: 18; radius: 9; color: "#ebdbb2"
-            border.width: slider.activeFocus ? 3 : 0; border.color: "#b8bb26"
+            border.width: slider.activeFocus ? 3 : 0; border.color: "#fe8019"
         }
     }
     Text { text: control.level < 0 ? "—" : Math.round(slider.value) + "%"; color: "#ebdbb2"; font.pixelSize: 12; Layout.preferredWidth: 40; horizontalAlignment: Text.AlignRight }

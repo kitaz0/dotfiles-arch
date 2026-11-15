@@ -36,17 +36,19 @@ Super is the Windows/logo key. These are the complete generated compositor short
 | Media play / pause | Toggle playback through playerctl |
 | Media next / previous | Next/previous track |
 
+The sun icon also opens Night Light controls on desktops without a laptop backlight. For terminal use, `night-light.sh start|status|on|off|temperature K` manages Graphite's filter; `--help` describes its range and session lifetime.
+
 Brightness/audio/media keys work while locked. Application/clipboard/recording shortcuts do not. Lock and power commands are also available through scripts in `~/.local/lib/graphite`. `record.sh start|stop|toggle|status`, `clipboard.sh pick|clear`, and `screenshot.sh full|region|annotate` are the command forms.
 
 Fuzzel: type to search, arrows to navigate, Enter selects/launches, Escape cancels. These same controls apply to clipboard and power menus. Logout/reboot/power off need a second Confirm selection; Cancel is first. Suspend goes through logind and hypridle's pre-sleep lock handling.
 
 Satty's own Save/Copy controls export annotations; the raw PNG is saved before the editor opens. OBS hotkeys are defined manually inside its profile as described in `OBS.md`; no global OBS shortcuts conflict with quick recording.
 
-Waybar: click a device icon to open its settings; another device icon changes the page in the same window. The clipboard icon opens searchable history. Escape, Close, outside clicks and the same trigger dismiss settings. The bell still opens SwayNC separately. Hover battery for status and estimated time. See [QUICK-SETTINGS.md](QUICK-SETTINGS.md).
+Waybar: click a device icon to open its settings; another device icon changes the page in the same window. The clipboard icon opens searchable history. Escape, Close, outside clicks and the same trigger dismiss settings. The bell opens SwayNC separately; right-click toggles Do Not Disturb and a crossed bell indicates it is enabled. Click battery for its power panel, or hover for status and estimated time. See [QUICK-SETTINGS.md](QUICK-SETTINGS.md).
 
-Edit `~/.config/graphite/hypr/graphite/bindings.lua`, then run `hyprctl reload` and `hyprctl configerrors`. Idle timeouts are configured separately in `~/.config/graphite/hypr/hypridle.conf`.
+Edit `~/.config/graphite/hypr/graphite/bindings.lua`, then run `hyprctl reload` and `hyprctl configerrors`. Configure idle timeouts through the battery popup's Settings page; see [Power settings](POWER.md).
 
-Capture, brightness, media tools and OBS require their recommended/optional packages. Alt+Shift or clicking the layout label switches physical US/JP layouts. The adjacent Fcitx tray reports actual composition mode. Ctrl+Space toggles Japanese input when the private Fcitx5 profile is active; see [JAPANESE.md](JAPANESE.md). Zsh customization is opt-in and does not alter the terminal's login shell.
+Capture, brightness, media tools and OBS require their recommended/optional packages. The physical keyboard stays on US positions. The single EN/あ bar indicator reports whether Mozc is enabled. Ctrl+Space or clicking the indicator toggles Japanese input; right-click opens input settings; see [JAPANESE.md](JAPANESE.md). Zsh customization is opt-in and does not alter the terminal's login shell.
 
 Super+Shift+P or XF86Display (usually Fn + the display key) opens the display menu. Super+P remains pseudo-tiling. See [DISPLAYS.md](DISPLAYS.md).
 

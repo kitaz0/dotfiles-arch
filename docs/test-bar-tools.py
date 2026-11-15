@@ -22,6 +22,7 @@ case $5 in
         printf '\211PNG\000binary\n'
         exit "${DECODE_FAIL:-0}" ;;
     list) printf '42\tImage\n' ;;
+    wipe) printf '%s\n' "$4" > "$WIPED"; exit "${WIPE_FAIL:-0}" ;;
     *) exit 9 ;;
 esac''')
     command('wl-copy', 'cat > "$COPIED"; exit "${COPY_FAIL:-0}"')
@@ -40,7 +41,7 @@ esac''')
     command('fuzzel', 'printf "%s\n" "$@" > "$ARGS"; cat > "$MENU"; echo "touch forbidden"; exit "${CANCEL:-0}"')
     env = {**os.environ, 'PATH':posix(box)+':/usr/bin:/bin', 'HOME':posix(box),
            'XDG_RUNTIME_DIR':posix(box), 'XDG_CACHE_HOME':posix(box/'cache'),
-           'COPIED':posix(box/'copied'), 'MENU':posix(box/'menu'), 'ARGS':posix(box/'args')}
+           'COPIED':posix(box/'copied'), 'WIPED':posix(box/'wiped'), 'MENU':posix(box/'menu'), 'ARGS':posix(box/'args')}
     def run(script, *args, code=0, **extra):
         result = subprocess.run([bash, str(root/'stow/desktop/.local/lib/graphite'/script), *args], env={**env, **extra}, cwd=box, capture_output=True, text=True)
         assert result.returncode == code, (result.returncode,result.stdout,result.stderr)
@@ -57,6 +58,12 @@ esac''')
     run('clipboard.sh','restore','missing',code=2)
     run('clipboard.sh','restore','7',code=1)
     run('clipboard.sh','restore','42',code=1,COPY_FAIL='1')
+    (box/'copied').write_bytes(b'current clipboard')
+    run('clipboard.sh','clear')
+    assert (box/'wiped').read_text().strip()==posix(box/'cache/graphite/cliphist/db')
+    assert (box/'copied').read_bytes()==b'current clipboard'
+    run('clipboard.sh','clear',code=7,WIPE_FAIL='7')
+    assert (box/'copied').read_bytes()==b'current clipboard'
     assert not list(box.glob('graphite-clipboard-*'))
     assert not (box/'forbidden').exists()
     ime=box/'.config/graphite/fcitx5/config'
@@ -71,7 +78,7 @@ esac''')
     run('shortcuts.sh', CANCEL='1')
     run('shortcuts.sh', LOCK_FAIL='1')
     run('shortcuts.sh', QUERY_FAIL='1',code=1)
-print('PASS: clipboard binary restoration, decode/copy failures, invalid IDs, temp cleanup; shortcut sizing, read-only selection, cancellation, lock and query failure (jq stubbed).')
+print('PASS: clipboard binary restoration, clear scoped to Graphite history, current clipboard preservation, failures, invalid IDs and temp cleanup; shortcut sizing, read-only selection, cancellation, lock and query failure (jq stubbed).')
 
 # Source-level collision check; actual Lua execution is in test-bindings.lua.
 import re

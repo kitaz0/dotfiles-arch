@@ -9,6 +9,7 @@ Start with the [project README](../README.md) for commands and shortcuts.
 | [Applications](APPLICATIONS.md) | Kitty, Starship, LazyVim and VS Code |
 | [Keybindings](KEYBINDINGS.md) | Complete shortcut reference |
 | [Quick settings](QUICK-SETTINGS.md) | Device pages, popup behavior and clipboard |
+| [Power settings](POWER.md) | Idle delays, suspend locking and performance modes |
 | [Theme](THEME.md) | Dark preference, Gruvbox palette and icons |
 | [Displays](DISPLAYS.md) | Monitor arrangements and hardware overrides |
 | [Bluetooth](BLUETOOTH.md) | Service setup, pairing and device actions |

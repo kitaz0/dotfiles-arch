@@ -1,0 +1,27 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/fastfetch/arch.txt",
+    "color": { "1": "#fe8019", "2": "#fabd2f", "3": "#ebdbb2" },
+    "padding": { "right": 4 }
+  },
+  "display": {
+    "separator": "  ",
+    "color": { "keys": "#fe8019", "output": "#ebdbb2" },
+    "showErrors": false
+  },
+  "modules": [
+    { "type": "custom", "format": "{#38;2;254;128;25}GRAPHITE{#}  {#38;2;168;153;132}/ ARCH LINUX{#}" },
+    { "type": "custom", "format": "{#38;2;102;92;84}──────────────────────────────────{#}" },
+    { "type": "os", "key": "OS      ", "format": "{name}" },
+    { "type": "kernel", "key": "Kernel  ", "format": "{release}" },
+    { "type": "wm", "key": "Desktop ", "format": "{pretty-name}" },
+    { "type": "terminal", "key": "Terminal", "format": "{pretty-name}" },
+    { "type": "cpu", "key": "CPU     ", "keyColor": "#fabd2f", "format": "{name}" },
+    { "type": "gpu", "key": "GPU     ", "keyColor": "#fabd2f", "format": "{vendor} {name}" },
+    { "type": "memory", "key": "Memory  ", "keyColor": "#d3869b", "format": "{used} / {total}" },
+    { "type": "custom", "format": "{#38;2;102;92;84}──────────────────────────────────{#}" },
+    { "type": "custom", "format": "{#38;2;254;128;25}● ●{#}  {#38;2;250;189;47}● ●{#}  {#38;2;211;134;155}● ●{#}  {#38;2;235;219;178}● ●{#}" }
+  ]
+}

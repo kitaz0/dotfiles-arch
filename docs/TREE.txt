@@ -16,6 +16,7 @@ hyprland-setup/
 |   |-- JAPANESE.md
 |   |-- KEYBINDINGS.md
 |   |-- OBS.md
+|   |-- POWER.md
 |   |-- QUICK-SETTINGS.md
 |   |-- QUICKSHELL-COMPATIBILITY.md
 |   |-- README.md
@@ -28,10 +29,15 @@ hyprland-setup/
 |   |-- test-displays.py
 |   |-- test-input-method.py
 |   |-- test-monitors.lua
+|   |-- test-night-light.py
 |   |-- test-packages.py
 |   |-- test-popup-state.js
+|   |-- test-power-panel.py
+|   |-- test-power-policy.py
 |   |-- test-quick-settings.py
 |   |-- test-startup.py
+|   |-- test-terminal-apps.py
+|   |-- test-theme.py
 |   |-- test-ui-contracts.py
 |   |-- test-verification.py
 |   |-- test-vscode.py
@@ -46,6 +52,12 @@ hyprland-setup/
 |-- session/
 |   `-- graphite-hyprland.desktop
 |-- stow/
+|   |-- btop/
+|   |   `-- .config/
+|   |       `-- btop/
+|   |           |-- themes/
+|   |           |   `-- graphite.theme
+|   |           `-- btop.conf
 |   |-- desktop/
 |   |   |-- .config/
 |   |   |   |-- graphite/
@@ -64,7 +76,12 @@ hyprland-setup/
 |   |   |   |   |   |   `-- rules.lua
 |   |   |   |   |   |-- hypridle.conf
 |   |   |   |   |   |-- hyprland.lua
-|   |   |   |   |   `-- hyprlock.conf
+|   |   |   |   |   |-- hyprlock.conf
+|   |   |   |   |   `-- hyprsunset.conf
+|   |   |   |   |-- power/
+|   |   |   |   |   `-- defaults.json
+|   |   |   |   |-- qt/
+|   |   |   |   |   `-- widgets.qss
 |   |   |   |   |-- quick-settings/
 |   |   |   |   |   |-- ActionButton.qml
 |   |   |   |   |   |-- arrange.svg
@@ -79,7 +96,10 @@ hyprland-setup/
 |   |   |   |   |   |-- external.svg
 |   |   |   |   |   |-- LevelSlider.qml
 |   |   |   |   |   |-- mirror.svg
+|   |   |   |   |   |-- NightLightControls.qml
 |   |   |   |   |   |-- PopupState.js
+|   |   |   |   |   |-- PowerPage.qml
+|   |   |   |   |   |-- PowerSettingsPage.qml
 |   |   |   |   |   |-- RadioSwitch.qml
 |   |   |   |   |   |-- shell.qml
 |   |   |   |   |   |-- single.svg
@@ -109,7 +129,9 @@ hyprland-setup/
 |   |       |       |-- launch-app.sh
 |   |       |       |-- lock.sh
 |   |       |       |-- network-menu.sh
+|   |       |       |-- night-light.sh
 |   |       |       |-- power-menu.sh
+|   |       |       |-- power-policy.sh
 |   |       |       |-- quick-settings-control.sh
 |   |       |       |-- quick-settings.sh
 |   |       |       |-- record.sh
@@ -137,6 +159,11 @@ hyprland-setup/
 |   |               |   `-- kdeglobals
 |   |               |-- palette.json
 |   |               `-- wallpaper.png
+|   |-- fastfetch/
+|   |   `-- .config/
+|   |       `-- fastfetch/
+|   |           |-- arch.txt
+|   |           `-- config.jsonc
 |   |-- kitty/
 |   |   `-- .config/
 |   |       `-- kitty/

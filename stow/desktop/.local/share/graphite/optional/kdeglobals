@@ -17,7 +17,7 @@ ForegroundNormal=235,219,178
 BackgroundNormal=80,73,69
 ForegroundNormal=235,219,178
 [Colors:Selection]
-BackgroundNormal=184,187,38
+BackgroundNormal=254,128,25
 ForegroundNormal=40,40,40
 [Colors:Tooltip]
 BackgroundNormal=60,56,54

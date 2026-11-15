@@ -1,6 +1,6 @@
 # Graphite / Gruvbox
 
-An Arch Linux desktop and dotfiles setup for **Hyprland 0.56.2 and Quickshell 0.3.2**, with GNU Stow, Kitty, Starship, Neovim/LazyVim and VS Code settings. Git tracks configuration history; Stow links the checkout into your home directory. No driver changes or automatic package installation.
+An Arch Linux desktop and dotfiles setup for **Hyprland 0.56.2 and Quickshell 0.3.2**, with GNU Stow, Kitty, Starship, Neovim/LazyVim, VS Code, Fastfetch and btop settings. Gruvbox Dark with warm orange, gold and purple accents. Git tracks configuration history; Stow links the checkout into your home directory. No driver changes or automatic package installation.
 
 ## Install
 
@@ -16,7 +16,7 @@ bash apply-config.sh --apply
 bash verify-setup.sh
 ```
 
-The default installs **desktop, Kitty, Starship, LazyVim and VS Code configurations**. To leave your ordinary app configs alone, add `--desktop-only` to all three scripts. The desktop still needs the Kitty executable; its settings are then your own.
+The default installs **desktop, Kitty, Starship, LazyVim, VS Code, Fastfetch and btop configurations**. To leave your ordinary app configs alone, add `--desktop-only` to all three scripts. The desktop still needs the Kitty executable; its settings are then your own.
 
 Existing files occupying selected destinations are moved to `~/.local/state/graphite/backups/` before Stow creates links. The installer never adopts home files into Git. Review the preview: application configs affect those apps in every desktop session. Add the separate login entry using [Installation](docs/INSTALLATION.md), then select **Hyprland (Graphite/Gruvbox)**.
 
@@ -61,8 +61,8 @@ Only configuration, desktop helpers and project documentation belong in this rep
 | Super+Shift+P | Visual display arrangement chooser |
 | Print / Super+Print / Shift+Print | Screenshot / region / annotation |
 | Super+Shift+R / Super+O | Quick recording / OBS (optional) |
-| Device icons | Wi-Fi, Bluetooth, audio mixer and brightness settings |
-| Alt+Shift / Ctrl+Space | US/JP keyboard layout / Japanese input when configured |
+| Device icons | Wi-Fi, Bluetooth, audio mixer, brightness/Night Light and battery/power settings |
+| Ctrl+Space | Japanese conversion on a US physical layout (single EN/あ indicator) |
 
 [All shortcuts](docs/KEYBINDINGS.md) · [Settings and clipboard](docs/QUICK-SETTINGS.md) · [Appearance](docs/THEME.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Recording](docs/OBS.md) · [Tests](docs/TESTING.md)
 
@@ -70,4 +70,4 @@ Use the [testing checklist](docs/TESTING.md) to verify the setup on your hardwar
 
 ## Project structure
 
-`stow/desktop/`, `stow/kitty/`, `stow/starship/`, `stow/nvim/` and `stow/vscode/` mirror home-directory destinations. `defaults/fcitx5/` supplies local writable seeds. `extensions/vscode.txt` lists VS Code extensions for the separate installer. `session/` holds the login entry; `licenses/` retains third-party notices. Root scripts review packages, invoke Stow and verify the setup. [Documentation index](docs/README.md) · [Public file tree](docs/TREE.txt).
+`stow/desktop/`, `stow/kitty/`, `stow/starship/`, `stow/nvim/`, `stow/vscode/`, `stow/fastfetch/` and `stow/btop/` mirror home-directory destinations. `defaults/fcitx5/` supplies local writable seeds. Battery → Settings configures separate battery/plugged-in idle delays; [Power settings](docs/POWER.md) explains local preferences and Git defaults. `extensions/vscode.txt` lists VS Code extensions for the separate installer. `session/` holds the login entry; `licenses/` retains third-party notices. Root scripts review packages, invoke Stow and verify the setup. [Documentation index](docs/README.md) · [Public file tree](docs/TREE.txt).

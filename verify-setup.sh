@@ -9,8 +9,8 @@ for arg in "$@"; do
         --desktop-only) desktop_only=1 ;;
         --help|-h)
             echo 'Usage: bash verify-setup.sh [--verbose] [--desktop-only]'
-            echo 'Read-only Stow links, dependencies, config and session checks.'
-            echo 'Default: desktop, Kitty, Starship, LazyVim and VS Code. --desktop-only omits application packages.'
+            echo 'Read-only Stow links, dependencies, config, power-policy and session checks.'
+            echo 'Default: desktop, Kitty, Starship, LazyVim, VS Code, Fastfetch and btop. --desktop-only omits application packages.'
             echo '--verbose prints full diagnostics. Exit 1: required check failed; exit 2: invalid arguments.'
             exit 0 ;;
         *) echo "Unknown option: $arg (see --help)" >&2; exit 2 ;;
@@ -61,7 +61,7 @@ if (( ${#missing[@]} )); then report WARN 'Optional feature dependencies' "Unava
 else report PASS 'Optional feature dependencies'; fi
 file_errors=() script_errors=() link_errors=() total=0
 packages=(desktop)
-(( desktop_only )) || packages+=(kitty starship nvim vscode)
+(( desktop_only )) || packages+=(kitty starship nvim vscode fastfetch btop)
 for package in "${packages[@]}"; do
     if [[ ! -d $base/stow/$package ]]; then file_errors+=("Missing source package: $package"); continue; fi
     while IFS= read -r -d '' source; do
@@ -95,6 +95,10 @@ if (( ! desktop_only )); then
     if command -v code >/dev/null; then report PASS 'VS Code CLI available (extension checks are separate)'
     else report WARN 'VS Code CLI unavailable' 'Install Microsoft VS Code separately to use the Code/User settings package.'; fi
     report SKIP 'VS Code extensions: run bash install-vscode-extensions.sh --check separately'
+    tools_missing=()
+    for cmd in fastfetch btop; do command -v "$cmd" >/dev/null || tools_missing+=("$cmd"); done
+    if (( ${#tools_missing[@]} )); then report WARN 'Terminal utility dependencies' "Missing optional apps: ${tools_missing[*]}"
+    else report PASS 'Fastfetch and btop available'; fi
     if command -v nvim >/dev/null; then
         version=$(nvim --version 2>&1)
         if [[ $version =~ NVIM[[:space:]]v([0-9]+)\.([0-9]+)\.([0-9]+) ]] && \
@@ -112,8 +116,13 @@ if command -v timeout >/dev/null; then
     fi
     if command -v zsh >/dev/null; then probe 'Zsh configuration parses' FAIL zsh -n "$HOME/.config/graphite/zsh/graphite.zsh"; fi
     if command -v jq >/dev/null; then
-        if (( ! desktop_only )); then probe 'VS Code settings JSON parses' FAIL jq empty "$HOME/.config/Code/User/settings.json"; fi
+        if (( ! desktop_only )); then
+            probe 'Application settings JSON parses' FAIL jq empty "$HOME/.config/Code/User/settings.json" "$HOME/.config/fastfetch/config.jsonc"
+        fi
         probe 'Bar, notification and palette JSON parses' FAIL jq empty "$HOME/.config/graphite/waybar/config.jsonc" "$HOME/.config/graphite/swaync/config.json" "$HOME/.local/share/graphite/palette.json"
+        if [[ -f $HOME/.local/lib/graphite/power-policy.sh ]]; then
+            probe 'Power idle settings are valid' FAIL bash "$HOME/.local/lib/graphite/power-policy.sh" settings
+        fi
     fi
     if [[ -x /usr/lib/qt6/bin/qmllint ]]; then
         probe 'QML lint (tooling warnings need review)' WARN timeout --kill-after=1s 20s /usr/lib/qt6/bin/qmllint -I /usr/lib/qt6/qml "$HOME/.config/graphite/quick-settings/"*.qml
@@ -153,13 +162,14 @@ fi
 if (( manager_ok )); then
     if (( graphite )); then
         probe 'Graphite helper service active' FAIL timeout 5s systemctl --user is-active graphite-session.service
+        probe 'Graphite idle policy service active' FAIL timeout 5s systemctl --user is-active graphite-power.service
         if (( verbose )); then
             output=$(timeout 5s systemctl --user status graphite-session.service --no-pager --full 2>&1) || true
             printf '%s\n' "$output"
         fi
     else
         active=() unknown=()
-        for unit in graphite-session.service graphite-recorder.service; do
+        for unit in graphite-session.service graphite-recorder.service graphite-night-light.service graphite-power.service graphite-lock.service; do
             state=$(timeout 5s systemctl --user show "$unit" -p ActiveState --value 2>/dev/null) || state=unknown
             case $state in
                 active|activating|deactivating|reloading) active+=("$unit: $state") ;;

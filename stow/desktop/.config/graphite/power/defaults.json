@@ -1,0 +1,5 @@
+{
+  "mains": { "lock": 300, "screenOff": 420, "suspend": 0 },
+  "battery": { "lock": 300, "screenOff": 420, "suspend": 0 },
+  "lockBeforeSleep": true
+}

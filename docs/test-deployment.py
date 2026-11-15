@@ -37,7 +37,7 @@ with tempfile.TemporaryDirectory(dir=checks,prefix='stow-') as directory:
     box=Path(directory); project=box/'project'; home=box/'home'; commands=box/'bin'
     for p in [project,home,commands]:p.mkdir()
     shutil.copyfile(root/'apply-config.sh',project/'apply-config.sh')
-    for package,rel in [('desktop','.config/graphite/example.conf'),('kitty','.config/kitty/kitty.conf'),('starship','.config/starship.toml'),('nvim','.config/nvim/init.lua'),('vscode','.config/Code/User/settings.json')]:
+    for package,rel in [('desktop','.config/graphite/example.conf'),('kitty','.config/kitty/kitty.conf'),('starship','.config/starship.toml'),('nvim','.config/nvim/init.lua'),('vscode','.config/Code/User/settings.json'),('fastfetch','.config/fastfetch/config.jsonc'),('btop','.config/btop/btop.conf')]:
         p=project/'stow'/package/rel;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(package+' config\n')
     for rel in ['config','profile','conf/classicui.conf']:
         p=project/'defaults/fcitx5'/rel;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('default\n')

@@ -21,8 +21,8 @@ Button {
     }
     background: Rectangle {
         radius: 9
-        color: control.selected ? "#b8bb26" : control.down ? "#665c54" : control.hovered ? "#504945" : "#3c3836"
+        color: control.selected ? "#fe8019" : control.down ? "#665c54" : control.hovered ? "#504945" : "#3c3836"
         border.width: control.activeFocus ? 2 : 1
-        border.color: control.activeFocus ? "#b8bb26" : "#665c54"
+        border.color: control.activeFocus ? "#fe8019" : "#665c54"
     }
 }

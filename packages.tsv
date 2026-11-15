@@ -23,6 +23,9 @@ essential	desktop	hyprlock	lock screen
 essential	desktop	hypridle	idle and pre-suspend lock integration
 essential	desktop	hyprpolkitagent	graphical authentication
 essential	desktop	swaync	notification daemon and history
+recommended	power	upower	battery statistics and charger events for idle policies
+recommended	power	power-profiles-daemon	battery-equipped machines only; preserve existing power managers
+recommended	displays	hyprsunset	Graphite-session Night Light with warmer display colors
 recommended	capture	grim	PNG capture
 recommended	capture	slurp	region picker
 recommended	capture	satty	annotation
@@ -89,5 +92,7 @@ recommended	apps	fzf	LazyVim fuzzy finder
 recommended	apps	tree-sitter-cli	LazyVim syntax parser compilation
 recommended	apps	gcc	compiler for editor plugins and syntax parsers
 recommended	apps	make	build tool for editor plugins
+recommended	apps	fastfetch	compact public-facing system summary with a custom Arch logo
+recommended	apps	btop	Gruvbox system monitor with native GPU model panels
 recommended	apps	curl	plugin download support
 recommended	apps	unzip	language tooling extraction

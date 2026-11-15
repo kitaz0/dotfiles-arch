@@ -20,7 +20,7 @@ Switch {
         implicitWidth: 44; implicitHeight: 24
         x: control.leftPadding; y: (control.height - height) / 2
         radius: 12
-        color: control.activeState ? "#b8bb26" : "#504945"
+        color: control.activeState ? "#fe8019" : "#504945"
         border.width: control.activeFocus ? 2 : 1
         border.color: control.activeFocus ? "#ebdbb2" : "#665c54"
         Rectangle {

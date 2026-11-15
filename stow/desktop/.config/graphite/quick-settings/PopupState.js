@@ -1,11 +1,11 @@
 // Pure functions shared by QML and the local transition tests.
 function normalize(page) {
     if (page === "home") return "audio";
-    return ["wifi", "bluetooth", "audio", "mixer", "brightness", "clipboard", "displays"].indexOf(page) >= 0 ? page : "audio";
+    return ["wifi", "bluetooth", "audio", "mixer", "brightness", "clipboard", "displays", "power", "power-settings"].indexOf(page) >= 0 ? page : "audio";
 }
 function toggle(current, requested) {
     requested = normalize(requested);
-    if (requested === current || (current === "mixer" && requested === "audio")) return "";
+    if (requested === current || (current === "mixer" && requested === "audio") || (current === "power-settings" && requested === "power")) return "";
     return requested;
 }
 function barEdges(layers) {

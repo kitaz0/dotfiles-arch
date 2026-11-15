@@ -28,8 +28,16 @@ ScrollView {
                 RowLayout {
                     Layout.fillWidth: true; spacing: 8
                     ActionButton {
-                        text: row.modelData.audio && row.modelData.audio.muted ? "\uf026" : "\uf028"
-                        font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 18
+                        text: {
+                            const audio = row.modelData.audio;
+                            if (audio && audio.muted) return "\udb81\udf5f";
+                            // Match Waybar's three equal volume ranges (0–32, 33–65, 66+).
+                            const volume = audio ? Math.round(audio.volume * 100) : 0;
+                            return volume < 33 ? "\udb81\udd7f" : volume < 66 ? "\udb81\udd80" : "\udb81\udd7e";
+                        }
+                        font.family: "JetBrainsMono Nerd Font Propo"
+                        font.pixelSize: 20
+                        implicitWidth: 44; implicitHeight: 44; padding: 4
                         Accessible.name: row.modelData.audio && row.modelData.audio.muted ? "Unmute" : "Mute"
                         ToolTip.visible: hovered; ToolTip.text: row.modelData.audio && row.modelData.audio.muted ? "Unmute" : "Mute"
                         selected: row.modelData.audio !== null && row.modelData.audio.muted

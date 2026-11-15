@@ -1,6 +1,6 @@
 """Execute logging and preference helpers with disposable command fixtures."""
 from pathlib import Path
-import os, shutil, subprocess, tempfile
+import json, os, shutil, subprocess, tempfile, time
 root=Path(__file__).resolve().parent.parent
 bash=r'C:\Program Files\Git\bin\bash.exe' if os.name=='nt' else shutil.which('bash')
 def posix(p):
@@ -50,4 +50,63 @@ esac''')
         assert not p.stdout
         assert p.stderr.splitlines() == preserved + preserved
         assert not list(box.glob('graphite-waybar-*.json'))
+    cc,jq=shutil.which('cc'),shutil.which('jq')
+    if os.name != 'nt' and Path('/proc/self/cmdline').exists() and cc and jq:
+        # Use real process arguments/signals and jq, with no compositor or services.
+        # A tiny stand-in has Waybar's executable name and records reload signals.
+        native=box/'waybar'
+        native.unlink()
+        subprocess.run([cc,'-x','c','-o',str(native),'-'],input=r'''
+#include <fcntl.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
+static int logfd;
+static void handle(int sig) {
+    if (sig == SIGUSR2) { (void)!write(logfd, "reload\n", 7); }
+    else _exit(0);
+}
+int main(void) {
+    logfd = open(getenv("BAR_LOG"), O_WRONLY | O_CREAT | O_APPEND, 0600);
+    if (logfd < 0) return 1;
+    signal(SIGUSR2, handle); signal(SIGTERM, handle);
+    (void)!write(logfd, "ready\n", 6);
+    for (;;) pause();
+}
+''',text=True,check=True,capture_output=True)
+        stub('jq','exec "'+jq+'" "$@"')
+        source=config/'config.jsonc'
+        source.write_text(json.dumps({'modules-right':['custom/input-method','battery','custom/brightness']}))
+        log=box/'bar.log';other_log=box/'other-bar.log'
+        launcher=root/'stow/desktop/.local/lib/graphite/waybar.sh'
+        live_env={**env,'BAR_LOG':str(log)}
+        bar=subprocess.Popen([bash,str(launcher)],env=live_env,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        foreign=subprocess.Popen([str(native),'-c',str(box/'unrelated.json'),'-s',str(config/'style.css')],env={**env,'BAR_LOG':str(other_log)})
+        def await_log(path,text):
+            deadline=time.monotonic()+3
+            while time.monotonic()<deadline:
+                if path.exists() and text in path.read_text(): return
+                time.sleep(.01)
+            raise AssertionError((path,path.read_text() if path.exists() else 'no log'))
+        try:
+            await_log(log,'ready');await_log(other_log,'ready')
+            generated=list(box.glob('graphite-waybar-*.json'))
+            assert len(generated)==1
+            initial=json.loads(generated[0].read_text())
+            assert set(initial)=={'include','modules-right'} and initial['include']==str(source)
+            assert 'custom/input-method' in initial['modules-right']
+            # A running bar from the older full-copy launcher must migrate too.
+            generated[0].write_text('{"custom/input-method":{"exec":"stale"}}')
+            run('waybar.sh','reload')
+            await_log(log,'reload')
+            assert json.loads(generated[0].read_text())==initial
+            assert other_log.read_text()=='ready\n', 'Unrelated bar received a reload'
+            assert bar.poll() is None and foreign.poll() is None
+        finally:
+            bar.terminate();foreign.terminate()
+            bar.communicate(timeout=3);foreign.wait(timeout=3)
+        assert not list(box.glob('graphite-waybar-*.json'))
+        print('PASS native bar reload: source include, hardware override, old-config migration, signal delivery, unrelated-bar isolation and cleanup.')
+    else:
+        print('SKIP native bar reload: requires Linux /proc, cc and jq.')
 print('PASS logging: all six bare battery statuses removed; prefixed/suffixed diagnostics preserved, stdout/stderr diagnostics and Waybar exit status retained; appearance apply/reapply/restore/conflict/write failure (commands mocked).')

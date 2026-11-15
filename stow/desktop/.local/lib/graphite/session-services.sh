@@ -10,7 +10,7 @@ owner=$(busctl --user call org.freedesktop.DBus /org/freedesktop/DBus org.freede
 [[ $owner == 'b false' || $owner == 'b true' ]] || { echo "Unexpected notification owner response: $owner" >&2; exit 1; }
 "$HOME/.local/lib/graphite/waybar.sh" &
 swaybg -i "$HOME/.local/share/graphite/wallpaper.png" -m fill &
-hypridle -c "$HOME/.config/graphite/hypr/hypridle.conf" &
+"$HOME/.local/lib/graphite/power-policy.sh" start &
 "$HOME/.local/lib/graphite/usb-notify.sh" &
 if [[ $owner == 'b false' ]]; then
     swaync -c "$HOME/.config/graphite/swaync/config.json" -s "$HOME/.config/graphite/swaync/style.css" &
@@ -30,4 +30,5 @@ else
 fi
 # No global autostart entry: its lifetime belongs to this Graphite cgroup.
 "$HOME/.local/lib/graphite/input-method.sh" start &
+"$HOME/.local/lib/graphite/night-light.sh" start &
 # ExitType=cgroup keeps this unit active while its helper processes remain.

@@ -11,9 +11,28 @@ Target: Arch Linux, GNU Stow, systemd, SDDM, Hyprland 0.56.2 (Lua API) and Quick
 5. Run `bash apply-config.sh --apply`. Existing conflicting files, including old copy-installed Graphite files, move to the printed backup directory outside the repository. Stow then creates file symlinks with `--no-folding`, keeping directories real.
 6. Run `bash verify-setup.sh`. Run it again inside Graphite for compositor/session checks.
 
-All scripts support `--help`. The default scope includes desktop, Kitty, Starship, LazyVim and VS Code. Use `--desktop-only` consistently for package review, linking and verification to omit application configurations and Starship/LazyVim dependencies. It does not remove apps installed by an earlier full installation. VS Code itself is installed separately; extension downloads are an explicit step described in [Applications](APPLICATIONS.md). Shell startup files, keys, packages and service enablement remain untouched.
+All scripts support `--help`. The default scope includes desktop, Kitty, Starship, LazyVim, VS Code, Fastfetch and btop. Use `--desktop-only` consistently for package review, linking and verification to omit application configurations and Starship/LazyVim dependencies. It does not remove apps installed by an earlier full installation. VS Code itself is installed separately; extension downloads are an explicit step described in [Applications](APPLICATIONS.md). Shell startup files, keys, packages and service enablement remain untouched.
 
 Fcitx settings are copied from `defaults/fcitx5/` only when missing; existing settings are preserved. These writable files remain outside the Stow packages so input-method saves cannot change repository defaults. The installer refuses symlinked destination parent directories; resolve custom linked dotfile layouts manually before applying.
+
+## Power profiles and Night Light
+
+Package review recommends `power-profiles-daemon` only when a system battery is detected, excluding peripheral batteries. It skips the package when TLP, tlp-pd, tuned, tuned-ppd, auto-cpufreq or system76-power is installed. Existing power managers are preserved. If the review selects power-profiles-daemon, install the printed packages and then enable the shared system service:
+
+```bash
+sudo systemctl enable --now power-profiles-daemon.service
+```
+
+This service is shared with other desktops, including Plasma. The battery panel exposes profiles supported by the running service. Its Settings button opens Graphite's own page for battery/plugged-in lock, screen-off and suspend delays. KDE's PowerDevil is not required. See [Power settings](POWER.md) for preferences, defaults and activation in an existing session.
+
+`hyprsunset` is recommended on laptops and desktops. After installing it and refreshing Stow links, Graphite starts its own Night Light service at login with the filter off. To start it in an existing Graphite session without restarting the other helpers:
+
+```bash
+bash ~/.local/lib/graphite/night-light.sh start
+bash ~/.local/lib/graphite/waybar.sh reload
+```
+
+Use the sun icon for its toggle and warmth slider. The private `~/.config/graphite/hypr/hyprsunset.conf` has no scheduled profiles by default. The launcher sets `XDG_CONFIG_HOME` for this service alone so Hyprsunset reads that file without relying on the broken `--config` argument in version 0.4.0. The transient service is bound to Graphite's lifetime and exits on logout. It does not enable the upstream global user service or replace an existing Hyprsunset instance.
 
 ## Login entry
 
