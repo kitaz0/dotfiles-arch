@@ -16,6 +16,16 @@ These are ordinary application settings and affect their use in every desktop se
 
 Colors come from the central palette. Some native configs are generated from templates; edit their `.in` sources rather than the linked output and run `python3 theme.py`. Kitty's main settings and Neovim plugin files remain directly editable. See [Appearance](THEME.md) for the source locations, generated files and reload workflow.
 
+## Pinta
+
+If Pinta is installed separately, the desktop package supplies `~/.local/share/applications/com.github.PintaProject.Pinta.desktop`, overriding its system launcher with `Exec=env GDK_BACKEND=wayland pinta %F`. Menu launches and Open With use native Wayland, with selected filenames passed as separate arguments. `TryExec=pinta` hides the launcher when Pinta is absent. Refresh the link with `bash apply-config.sh --apply`, then fully close Pinta and reopen the launcher before testing.
+
+This override also applies to Pinta launched through desktop menus in other environments, including KDE, and requires a Wayland session. It does not change the session environment. A direct terminal launch still uses `GDK_BACKEND=wayland pinta` (append image paths as usual). Unstowing the desktop package removes the override so menus use the system launcher again. A Hyprland window-class rule cannot choose GTK's backend: that choice happens before the window is created.
+
+Pinta 3.1.2 also has an [upstream canvas-coordinate bug](https://github.com/PintaProject/Pinta/issues/2165): the image can shrink without matching input coordinates. Forcing Wayland does not repair that application bug. The tested application fix sets `CanShrink = false` on the canvas picture so GTK cannot shrink it independently of Pinta's zoom; application patches are separate from the Stow configuration. Verify an updated build both as the only tiled window and with other windows present, including 100% zoom.
+
+Pinta 3 uses GTK4/libadwaita. Its View menu offers a dark color scheme; Graphite currently leaves its native appearance intact. The private Qt stylesheet used for input settings does not apply to Pinta. See [Pinta's release notes](https://www.pinta-project.com/releases/3-0).
+
 ## Fastfetch and btop
 
 Run `fastfetch` or `btop` normally after linking the application packages. Their executables are recommended app dependencies in `install-deps.sh --review`; no new aliases or shell startup commands are installed.

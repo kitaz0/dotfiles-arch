@@ -150,6 +150,8 @@ hyprland-setup/
 |   |       |       |-- volume.sh
 |   |       |       `-- waybar.sh
 |   |       `-- share/
+|   |           |-- applications/
+|   |           |   `-- com.github.PintaProject.Pinta.desktop
 |   |           |-- color-schemes/
 |   |           |   `-- Gruvbox.colors
 |   |           `-- graphite/
