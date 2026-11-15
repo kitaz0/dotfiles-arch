@@ -10,7 +10,7 @@ for arg in "$@"; do
         --help|-h)
             echo 'Usage: bash verify-setup.sh [--verbose] [--desktop-only]'
             echo 'Read-only Stow links, dependencies, config, power-policy and session checks.'
-            echo 'Default: desktop, Kitty, Starship, LazyVim, VS Code, Fastfetch and btop. --desktop-only omits application packages.'
+            echo 'Default: desktop, Kitty, Starship, LazyVim, VS Code, Fastfetch, btop and Lazygit. --desktop-only omits application packages.'
             echo '--verbose prints full diagnostics. Exit 1: required check failed; exit 2: invalid arguments.'
             exit 0 ;;
         *) echo "Unknown option: $arg (see --help)" >&2; exit 2 ;;
@@ -61,7 +61,7 @@ if (( ${#missing[@]} )); then report WARN 'Optional feature dependencies' "Unava
 else report PASS 'Optional feature dependencies'; fi
 file_errors=() script_errors=() link_errors=() total=0
 packages=(desktop)
-(( desktop_only )) || packages+=(kitty starship nvim vscode fastfetch btop)
+(( desktop_only )) || packages+=(kitty starship nvim vscode fastfetch btop lazygit)
 for package in "${packages[@]}"; do
     if [[ ! -d $base/stow/$package ]]; then file_errors+=("Missing source package: $package"); continue; fi
     while IFS= read -r -d '' source; do
@@ -96,9 +96,9 @@ if (( ! desktop_only )); then
     else report WARN 'VS Code CLI unavailable' 'Install Microsoft VS Code separately to use the Code/User settings package.'; fi
     report SKIP 'VS Code extensions: run bash install-vscode-extensions.sh --check separately'
     tools_missing=()
-    for cmd in fastfetch btop; do command -v "$cmd" >/dev/null || tools_missing+=("$cmd"); done
+    for cmd in fastfetch btop lazygit; do command -v "$cmd" >/dev/null || tools_missing+=("$cmd"); done
     if (( ${#tools_missing[@]} )); then report WARN 'Terminal utility dependencies' "Missing optional apps: ${tools_missing[*]}"
-    else report PASS 'Fastfetch and btop available'; fi
+    else report PASS 'Fastfetch, btop and Lazygit available'; fi
     if command -v nvim >/dev/null; then
         version=$(nvim --version 2>&1)
         if [[ $version =~ NVIM[[:space:]]v([0-9]+)\.([0-9]+)\.([0-9]+) ]] && \

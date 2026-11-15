@@ -13,7 +13,7 @@ for arg in "$@"; do
             cat <<'HELP'
 Usage: bash apply-config.sh [--dry-run|--apply] [--desktop-only] [--unstow]
 
-Default: preview desktop, Kitty, Starship, LazyVim, VS Code, Fastfetch and btop links. No files changed.
+Default: preview desktop, Kitty, Starship, LazyVim, VS Code, Fastfetch, btop and Lazygit links. No files changed.
     --apply          Back up conflicting destination files, then link with GNU Stow
     --desktop-only   Select the desktop package; leave application configs alone
     --unstow         Remove selected Stow links (preview unless --apply is supplied)
@@ -37,7 +37,7 @@ for cmd in stow find sort readlink; do
     command -v "$cmd" >/dev/null || { echo "Missing $cmd; review bash install-deps.sh --review first." >&2; exit 1; }
 done
 packages=(desktop)
-(( desktop_only )) || packages+=(kitty starship nvim vscode fastfetch btop)
+(( desktop_only )) || packages+=(kitty starship nvim vscode fastfetch btop lazygit)
 stow_args=(--dir="$base/stow" --target="$HOME" --no-folding --verbose=1)
 if (( unstow )); then
     (( apply )) || stow_args+=(--simulate)

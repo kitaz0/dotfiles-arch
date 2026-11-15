@@ -40,6 +40,20 @@ assert code['focusBorder']==code['button.background']==code['editorCursor.foregr
 assert code['textLink.foreground']==code['list.highlightForeground']==code['terminal.ansiBrightCyan']==secondary
 assert code['editor.background']==palette['background'] and code['editor.foreground']==palette['foreground']
 assert code['terminal.ansiCyan']==kitty['color6']
+lazygit_source=(root/'stow/lazygit/.config/lazygit/config.yml').read_text()
+lazygit={key:json.loads(value) for key,value in re.findall(r'^    (\w+): (\[.*\])$',lazygit_source,re.M)}
+assert lazygit['optionsTextColor']==[secondary]
+assert lazygit['selectedLineBgColor']==[palette['surface']]
+assert lazygit['selectedLineFgColor']==[palette['foreground'],'bold']
+def luminance(color):
+    values=[int(color[i:i+2],16)/255 for i in [1,3,5]]
+    linear=[v/12.92 if v<=0.04045 else ((v+0.055)/1.055)**2.4 for v in values]
+    return sum(v*w for v,w in zip(linear,[0.2126,0.7152,0.0722]))
+def contrast(a,b):
+    values=sorted([luminance(a),luminance(b)])
+    return (values[1]+0.05)/(values[0]+0.05)
+assert contrast(lazygit['optionsTextColor'][0],lazygit['selectedLineBgColor'][0])>=4.5
+assert contrast(lazygit['selectedLineFgColor'][0],lazygit['selectedLineBgColor'][0])>=7
 nvim=(root/'stow/nvim/.config/nvim/lua/plugins/colorscheme.lua').read_text()
 assert f'bright_aqua = "{secondary}"' in nvim and f'neutral_aqua = "{palette["gold"]}"' in nvim
 assert f'PmenuSel = {{ fg = "{palette["background"]}", bg = "{primary}"' in nvim
@@ -50,7 +64,7 @@ for file in [desktop/'.config/graphite/dolphin/kdeglobals',desktop/'.local/share
     assert ini['Colors:Selection']['BackgroundNormal']==rgb(primary)
     assert ini['Colors:Window']['ForegroundLink']==rgb(secondary)
     assert ini['Colors:Window']['ForegroundPositive']==rgb(palette['green'])
-print('PASS shared Gruvbox roles: orange focus, yellow secondary and purple details agree across bar, launcher, Kitty, Starship, Fastfetch, btop, Neovim, VS Code and KDE palette; status green retained.')
+print('PASS shared Gruvbox roles: accents agree across desktop/apps; Lazygit shortcut and selected-text contrast checked; status green retained.')
 
 plugin=Path.home()/'.local/share/nvim/lazy/gruvbox.nvim'
 if os.name=='posix' and shutil.which('nvim') and plugin.is_dir():

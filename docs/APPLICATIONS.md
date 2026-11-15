@@ -10,6 +10,7 @@ The default install includes these GNU Stow packages alongside `desktop`:
 | `vscode` | `~/.config/Code/User/settings.json` | Gruvbox Dark Medium, shared accent overrides, Nerd Font and portable CMake settings |
 | `fastfetch` | `~/.config/fastfetch/` | Original warm Arch wordmark/logo and a compact system summary |
 | `btop` | `~/.config/btop/` | Graphite theme and GPU detail panels with detected model names |
+| `lazygit` | `~/.config/lazygit/config.yml` | Gruvbox Git UI with readable shortcut-menu selection |
 
 These are ordinary application settings and affect their use in every desktop session. `--desktop-only` leaves those paths alone. Close btop before the first linking operation; its existing config is backed up using the same Stow workflow as the other apps. Graphite's terminal helper launches ordinary Kitty and inherits its configured shell. The normal Hyprland and KDE configuration paths remain independent.
 
@@ -40,6 +41,12 @@ eval "$(starship init bash)"
 ```
 
 Use just the line matching your shell. Restart the shell. Explicit `STARSHIP_CONFIG` overrides take precedence; remove or adjust one if it points elsewhere. The optional desktop `graphite.zsh` prompt is an alternative; use one prompt initializer at a time.
+
+## Lazygit
+
+The Lazygit package supplies only theme overrides. Shortcut text is gold; selected rows use cream text on the darker Gruvbox surface, including the `?` shortcut menu. Existing keybindings and Git behavior retain Lazygit's defaults. The first apply backs up an existing config before linking; merge intentional personal settings from that backup if needed.
+
+LazyVim's Snacks integration generates an additional theme when it launches Lazygit. `stow/nvim/.config/nvim/lua/plugins/lazygit.lua` maps its shortcuts and selection to the same Gruvbox colors while preserving Neovim's editor integration. Restart Neovim after linking the new plugin config so its generated theme is refreshed. Standalone Lazygit reads the normal config on the next launch.
 
 ## LazyVim
 

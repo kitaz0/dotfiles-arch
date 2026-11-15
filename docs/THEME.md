@@ -10,6 +10,8 @@ Input-method settings use an application-local Gruvbox stylesheet with Qt's Fusi
 
 Power settings use the same locally styled Qt Quick controls and Gruvbox palette as the other Graphite popup pages. They do not launch KDE's power settings or change Plasma's theme.
 
+Lazygit uses gold shortcuts and cream text on a dark surface for selected rows. Both its standalone config and LazyVim/Snacks' generated theme use that contrast pair; the audit checks the selected text and shortcut contrast. This keeps the `?` shortcut menu legible independently of terminal ANSI blue settings.
+
 ## Dark mode
 
 The GTK Settings portal reads `org.gnome.desktop.interface color-scheme`. Application preferences control their appearance independently of the bar colors.

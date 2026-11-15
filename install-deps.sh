@@ -33,7 +33,7 @@ if [[ -n $info ]]; then
         printf '%s\n' \
             'Usage: bash install-deps.sh [--review|--dry-run] [SELECTION] [--desktop-only]' \
             '' \
-            'Default: desktop plus Kitty, Starship, LazyVim, Fastfetch and btop dependencies.' \
+            'Default: desktop plus Kitty, Starship, LazyVim, Fastfetch, btop and Lazygit dependencies.' \
             '  --desktop-only        Omit application-only dependencies' \
             '  --minimal             Essential packages only' \
             '  --optional=CATEGORY   Default packages plus one optional/development category' \

@@ -168,6 +168,10 @@ hyprland-setup/
 |   |   `-- .config/
 |   |       `-- kitty/
 |   |           `-- kitty.conf
+|   |-- lazygit/
+|   |   `-- .config/
+|   |       `-- lazygit/
+|   |           `-- config.yml
 |   |-- nvim/
 |   |   `-- .config/
 |   |       `-- nvim/
@@ -179,7 +183,8 @@ hyprland-setup/
 |   |           |   |   `-- options.lua
 |   |           |   `-- plugins/
 |   |           |       |-- colorscheme.lua
-|   |           |       `-- example.lua
+|   |           |       |-- example.lua
+|   |           |       `-- lazygit.lua
 |   |           |-- .neoconf.json
 |   |           |-- init.lua
 |   |           |-- lazy-lock.json

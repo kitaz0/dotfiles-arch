@@ -94,5 +94,6 @@ recommended	apps	gcc	compiler for editor plugins and syntax parsers
 recommended	apps	make	build tool for editor plugins
 recommended	apps	fastfetch	compact public-facing system summary with a custom Arch logo
 recommended	apps	btop	Gruvbox system monitor with native GPU model panels
+recommended	apps	lazygit	Git terminal UI with a readable Gruvbox shortcut selection
 recommended	apps	curl	plugin download support
 recommended	apps	unzip	language tooling extraction
