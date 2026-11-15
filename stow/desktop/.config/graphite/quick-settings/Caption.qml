@@ -1,7 +1,8 @@
+import "Theme.js" as Theme
 import QtQuick
 
 Text {
-    color: "#ebdbb2"
+    color: Theme.foreground
     font.family: "Noto Sans"
     font.pixelSize: 13
     textFormat: Text.PlainText

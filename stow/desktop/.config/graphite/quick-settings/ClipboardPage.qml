@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -36,13 +37,13 @@ ColumnLayout {
             Layout.fillWidth: true
             placeholderText: "Search clipboard history"
             Accessible.name: "Search clipboard history"
-            color: "#ebdbb2"; placeholderTextColor: "#a89984"
-            selectionColor: "#fe8019"; selectedTextColor: "#282828"
-            background: Rectangle { color: "#3c3836"; radius: 7; border.color: search.activeFocus ? "#fe8019" : "#665c54" }
+            color: Theme.foreground; placeholderTextColor: Theme.muted
+            selectionColor: Theme.accent; selectedTextColor: Theme.background
+            background: Rectangle { color: Theme.surface; radius: 7; border.color: search.activeFocus ? Theme.accent : Theme.border }
         }
         ActionButton { text: "Refresh"; enabled: !query.running && !copyEntry.running && !clearHistory.running; onClicked: root.refresh() }
     }
-    Caption { text: root.message; visible: text !== ""; color: "#fb4934"; Layout.fillWidth: true }
+    Caption { text: root.message; visible: text !== ""; color: Theme.red; Layout.fillWidth: true }
     ListView {
         id: history
         Layout.fillWidth: true; Layout.fillHeight: true
@@ -80,8 +81,8 @@ ColumnLayout {
         }
         ActionButton { text: "Cancel"; visible: root.confirmingClear; enabled: !clearHistory.running; onClicked: root.confirmingClear = false }
     }
-    Caption { visible: root.confirmingClear; text: "Delete all saved history? Your current clipboard is kept."; color: "#a89984"; Layout.fillWidth: true }
-    Caption { text: "Select to copy, then paste normally. Images are listed by their cliphist description."; color: "#a89984"; Layout.fillWidth: true }
+    Caption { visible: root.confirmingClear; text: "Delete all saved history? Your current clipboard is kept."; color: Theme.muted; Layout.fillWidth: true }
+    Caption { text: "Select to copy, then paste normally. Images are listed by their cliphist description."; color: Theme.muted; Layout.fillWidth: true }
     Process {
         id: query
         command: ["timeout", "3s", "bash", root.helpers + "clipboard.sh", "list-json"]

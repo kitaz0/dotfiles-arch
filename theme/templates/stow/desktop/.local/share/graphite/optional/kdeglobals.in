@@ -1,0 +1,24 @@
+[General]
+ColorScheme=Gruvbox
+font=Noto Sans,10,-1,5,50,0,0,0,0,0
+fixed=JetBrainsMono Nerd Font,11,-1,5,50,0,0,0,0,0
+[KDE]
+widgetStyle=Breeze
+[Icons]
+Theme=breeze-dark
+[Colors:Window]
+BackgroundNormal={{background|rgb}}
+ForegroundNormal={{foreground|rgb}}
+[Colors:View]
+BackgroundNormal={{surface|rgb}}
+BackgroundAlternate={{elevated|rgb}}
+ForegroundNormal={{foreground|rgb}}
+[Colors:Button]
+BackgroundNormal={{elevated|rgb}}
+ForegroundNormal={{foreground|rgb}}
+[Colors:Selection]
+BackgroundNormal={{accent|rgb}}
+ForegroundNormal={{background|rgb}}
+[Colors:Tooltip]
+BackgroundNormal={{surface|rgb}}
+ForegroundNormal={{foreground|rgb}}

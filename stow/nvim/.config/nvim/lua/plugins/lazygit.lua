@@ -1,17 +1,21 @@
+local colors = require("graphite.palette")
+
 return {
   {
     "folke/snacks.nvim",
     opts = {
       lazygit = {
-        theme = {
-          activeBorderColor = { fg = "GruvboxOrange", bold = true },
-          searchingActiveBorderColor = { fg = "GruvboxYellow", bold = true },
-          optionsTextColor = { fg = "GruvboxYellow" },
-          -- Snacks generates a separate theme when launching Lazygit from Neovim.
-          -- NormalFloat supplies cream text on the darker Gruvbox surface.
-          selectedLineBgColor = { bg = "NormalFloat" },
-          selectedLineFgColor = { fg = "NormalFloat", bold = true },
-        },
+        -- Keep Snacks integration; share the standalone Lazygit contrast choices.
+        config = { gui = { theme = {
+          activeBorderColor = { colors.accent, "bold" },
+          inactiveBorderColor = { colors.border },
+          searchingActiveBorderColor = { colors.secondary, "bold" },
+          optionsTextColor = { colors.secondary },
+          defaultFgColor = { colors.foreground },
+          selectedLineBgColor = { colors.surface },
+          selectedLineFgColor = { colors.foreground, "bold" },
+          inactiveViewSelectedLineBgColor = { colors.surface },
+        } } },
       },
     },
   },

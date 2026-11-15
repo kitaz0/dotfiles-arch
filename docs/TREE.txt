@@ -37,6 +37,7 @@ hyprland-setup/
 |   |-- test-quick-settings.py
 |   |-- test-startup.py
 |   |-- test-terminal-apps.py
+|   |-- test-theme-generation.py
 |   |-- test-theme.py
 |   |-- test-ui-contracts.py
 |   |-- test-verification.py
@@ -103,10 +104,13 @@ hyprland-setup/
 |   |   |   |   |   |-- RadioSwitch.qml
 |   |   |   |   |   |-- shell.qml
 |   |   |   |   |   |-- single.svg
+|   |   |   |   |   |-- Theme.js
 |   |   |   |   |   `-- WifiPage.qml
 |   |   |   |   |-- swaync/
 |   |   |   |   |   |-- config.json
 |   |   |   |   |   `-- style.css
+|   |   |   |   |-- theme/
+|   |   |   |   |   `-- colors.css
 |   |   |   |   |-- waybar/
 |   |   |   |   |   |-- config.jsonc
 |   |   |   |   |   `-- style.css
@@ -167,6 +171,7 @@ hyprland-setup/
 |   |-- kitty/
 |   |   `-- .config/
 |   |       `-- kitty/
+|   |           |-- colors.conf
 |   |           `-- kitty.conf
 |   |-- lazygit/
 |   |   `-- .config/
@@ -181,6 +186,8 @@ hyprland-setup/
 |   |           |   |   |-- keymaps.lua
 |   |           |   |   |-- lazy.lua
 |   |           |   |   `-- options.lua
+|   |           |   |-- graphite/
+|   |           |   |   `-- palette.lua
 |   |           |   `-- plugins/
 |   |           |       |-- colorscheme.lua
 |   |           |       |-- example.lua
@@ -198,6 +205,64 @@ hyprland-setup/
 |           `-- Code/
 |               `-- User/
 |                   `-- settings.json
+|-- theme/
+|   |-- templates/
+|   |   `-- stow/
+|   |       |-- btop/
+|   |       |   `-- .config/
+|   |       |       `-- btop/
+|   |       |           `-- themes/
+|   |       |               `-- graphite.theme.in
+|   |       |-- desktop/
+|   |       |   |-- .config/
+|   |       |   |   `-- graphite/
+|   |       |   |       |-- dolphin/
+|   |       |   |       |   `-- kdeglobals.in
+|   |       |   |       |-- fuzzel/
+|   |       |   |       |   `-- fuzzel.ini.in
+|   |       |   |       |-- hypr/
+|   |       |   |       |   |-- graphite/
+|   |       |   |       |   |   `-- appearance.lua.in
+|   |       |   |       |   `-- hyprlock.conf.in
+|   |       |   |       |-- qt/
+|   |       |   |       |   `-- widgets.qss.in
+|   |       |   |       |-- quick-settings/
+|   |       |   |       |   |-- arrange.svg.in
+|   |       |   |       |   |-- extend.svg.in
+|   |       |   |       |   |-- external.svg.in
+|   |       |   |       |   |-- mirror.svg.in
+|   |       |   |       |   `-- single.svg.in
+|   |       |   |       `-- zsh/
+|   |       |   |           `-- graphite.zsh.in
+|   |       |   `-- .local/
+|   |       |       `-- share/
+|   |       |           |-- color-schemes/
+|   |       |           |   `-- Gruvbox.colors.in
+|   |       |           `-- graphite/
+|   |       |               `-- optional/
+|   |       |                   `-- kdeglobals.in
+|   |       |-- fastfetch/
+|   |       |   `-- .config/
+|   |       |       `-- fastfetch/
+|   |       |           `-- config.jsonc.in
+|   |       |-- kitty/
+|   |       |   `-- .config/
+|   |       |       `-- kitty/
+|   |       |           `-- colors.conf.in
+|   |       |-- lazygit/
+|   |       |   `-- .config/
+|   |       |       `-- lazygit/
+|   |       |           `-- config.yml.in
+|   |       |-- starship/
+|   |       |   `-- .config/
+|   |       |       `-- starship.toml.in
+|   |       `-- vscode/
+|   |           `-- .config/
+|   |               `-- Code/
+|   |                   `-- User/
+|   |                       `-- settings.json.in
+|   |-- palette.json
+|   `-- templates.json
 |-- .gitignore
 |-- apply-config.sh
 |-- install-deps.sh
@@ -205,4 +270,5 @@ hyprland-setup/
 |-- packages.tsv
 |-- packages.txt
 |-- README.md
+|-- theme.py
 `-- verify-setup.sh

@@ -1,9 +1,11 @@
+@import "../theme/colors.css";
+
 * { font-family: "Noto Sans"; font-size: 13px; }
-.control-center, .notification { background: #282828; color: #ebdbb2; border: 1px solid #665c54; border-radius: 7px; }
+.control-center, .notification { background: @background; color: @foreground; border: 1px solid @border; border-radius: 7px; }
 .notification-content { padding: 10px; }
-.summary { font-weight: bold; color: #fe8019; }
-.body { color: #ebdbb2; }
-button { background: #504945; color: #ebdbb2; border-radius: 5px; }
-button:hover { background: #665c54; }
-.widget-title { color: #d3869b; margin: 12px; }
+.summary { font-weight: bold; color: @accent; }
+.body { color: @foreground; }
+button { background: @elevated; color: @foreground; border-radius: 5px; }
+button:hover { background: @border; }
+.widget-title { color: @tertiary; margin: 12px; }
 .widget-dnd { margin: 8px 12px; }

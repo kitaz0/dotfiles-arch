@@ -86,7 +86,7 @@ assert 'else if (root.page === "displays") Qt.quit();' in qml
 for name in ['extend','mirror','single','external','arrange']:
     ET.parse(root/'stow/desktop/.config/graphite/quick-settings'/f'{name}.svg')
 palette=json.loads((root/'stow/desktop/.local/share/graphite/palette.json').read_text())
-assert palette['background']=='#282828' and palette['accent']=='#fe8019'
+assert all(role in palette for role in ['background','foreground','accent','secondary','tertiary'])
 assert 'font: control.font' in (root/'stow/desktop/.config/graphite/quick-settings/ActionButton.qml').read_text()
 print('PASS static UI contracts: direct settings icons, US clock, centered battery states, modal dismissal with accessible bar, same-window page transition, native audio, independent brightness, single input-mode indicator, visual monitors and Gruvbox palette.')
 print('SKIP QML compilation/rendering and live input: these source assertions do not validate Qt imports, signals, focus or hardware behavior.')

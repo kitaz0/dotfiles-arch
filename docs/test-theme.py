@@ -6,15 +6,16 @@ root=Path(__file__).resolve().parent.parent
 desktop=root/'stow/desktop'
 palette=json.loads((desktop/'.local/share/graphite/palette.json').read_text())
 primary,secondary,tertiary=(palette[k] for k in ['accent','secondary','tertiary'])
-assert (primary,secondary,tertiary)==('#fe8019','#fabd2f','#d3869b')
-assert palette['gold']=='#d79921'
-css=(desktop/'.config/graphite/waybar/style.css').read_text()
+css=(desktop/'.config/graphite/theme/colors.css').read_text()
+for app in ['waybar','swaync']:
+    assert '@import "../theme/colors.css";' in (desktop/f'.config/graphite/{app}/style.css').read_text()
 for name,color in [('accent',primary),('secondary',secondary),('tertiary',tertiary)]:
     assert re.search(r'@define-color '+name+r'\s+'+color+r';',css)
 fuzzel=configparser.ConfigParser(interpolation=None)
 fuzzel.read(desktop/'.config/graphite/fuzzel/fuzzel.ini')
 assert fuzzel['colors']['match']==primary[1:]+'ff'
-kitty=dict(line.split(maxsplit=1) for line in (root/'stow/kitty/.config/kitty/kitty.conf').read_text().splitlines() if line and not line.startswith('#'))
+kitty=dict(line.split(maxsplit=1) for line in (root/'stow/kitty/.config/kitty/colors.conf').read_text().splitlines() if line and not line.startswith('#'))
+assert 'include colors.conf' in (root/'stow/kitty/.config/kitty/kitty.conf').read_text()
 assert kitty['cursor']==kitty['selection_background']==kitty['active_tab_background']==primary
 assert kitty['url_color']==kitty['color14']==secondary
 assert kitty['color6']==palette['gold']
@@ -55,8 +56,8 @@ def contrast(a,b):
 assert contrast(lazygit['optionsTextColor'][0],lazygit['selectedLineBgColor'][0])>=4.5
 assert contrast(lazygit['selectedLineFgColor'][0],lazygit['selectedLineBgColor'][0])>=7
 nvim=(root/'stow/nvim/.config/nvim/lua/plugins/colorscheme.lua').read_text()
-assert f'bright_aqua = "{secondary}"' in nvim and f'neutral_aqua = "{palette["gold"]}"' in nvim
-assert f'PmenuSel = {{ fg = "{palette["background"]}", bg = "{primary}"' in nvim
+assert 'bright_aqua = colors.secondary' in nvim and 'neutral_aqua = colors.gold' in nvim
+assert 'PmenuSel = { fg = colors.background, bg = colors.accent' in nvim
 assert 'contrast = ""' in nvim
 def rgb(color): return ','.join(str(int(color[i:i+2],16)) for i in [1,3,5])
 for file in [desktop/'.config/graphite/dolphin/kdeglobals',desktop/'.local/share/color-schemes/Gruvbox.colors']:
@@ -72,18 +73,36 @@ if os.name=='posix' and shutil.which('nvim') and plugin.is_dir():
         box=Path(folder);script=box/'check.lua'
         source=root/'stow/nvim/.config/nvim/lua/plugins/colorscheme.lua'
         script.write_text('vim.opt.rtp:prepend('+json.dumps(str(plugin))+')\n'
+            'vim.opt.rtp:prepend('+json.dumps(str(root/'stow/nvim/.config/nvim'))+')\n'
             'vim.o.background = "dark"\n'
             'local opts = dofile('+json.dumps(str(source))+')[1].opts\n'
             'require("gruvbox").setup(opts)\n'
             'vim.cmd.colorscheme("gruvbox")\n'
-            'assert(vim.api.nvim_get_hl(0, {name="Normal"}).bg == 0x282828)\n'
-            'assert(vim.api.nvim_get_hl(0, {name="GruvboxAqua"}).fg == 0xfabd2f)\n'
-            'assert(vim.api.nvim_get_hl(0, {name="PmenuSel"}).bg == 0xfe8019)\n'
-            'assert(vim.api.nvim_get_hl(0, {name="CursorLineNr"}).fg == 0xfe8019)\n'
-            'assert(vim.api.nvim_get_hl(0, {name="Directory"}).fg == 0xfabd2f)\n')
+            'assert(vim.api.nvim_get_hl(0, {name="Normal"}).bg == '+str(int(palette['background'][1:],16))+')\n'
+            'assert(vim.api.nvim_get_hl(0, {name="GruvboxAqua"}).fg == '+str(int(palette['secondary'][1:],16))+')\n'
+            'assert(vim.api.nvim_get_hl(0, {name="PmenuSel"}).bg == '+str(int(palette['accent'][1:],16))+')\n'
+            'assert(vim.api.nvim_get_hl(0, {name="CursorLineNr"}).fg == '+str(int(palette['accent'][1:],16))+')\n'
+            'assert(vim.api.nvim_get_hl(0, {name="Directory"}).fg == '+str(int(palette['secondary'][1:],16))+')\n')
         env={**os.environ,'XDG_STATE_HOME':str(box/'state'),'XDG_CACHE_HOME':str(box/'cache')}
         result=subprocess.run(['nvim','--headless','-u','NONE','-i','NONE','-l',str(script)],env=env,capture_output=True,text=True,timeout=8)
         assert result.returncode==0,result.stdout+result.stderr
+        snacks=plugin.parent/'snacks.nvim'
+        if snacks.is_dir():
+            # Run Snacks' real generator; stub only the terminal launch, not its theme merge.
+            expected={key:values[0] for key,values in lazygit.items()}
+            script.write_text(script.read_text()
+                +'vim.opt.rtp:prepend('+json.dumps(str(snacks))+')\n'
+                +'local snacks = require("snacks")\n'
+                +'snacks.setup(dofile('+json.dumps(str(root/'stow/nvim/.config/nvim/lua/plugins/lazygit.lua'))+')[1].opts)\n'
+                +'vim.fn.mkdir(vim.fn.stdpath("cache"), "p")\n'
+                +'snacks.terminal = function() return {} end\n'
+                +'snacks.lazygit()\n')
+            result=subprocess.run(['nvim','--headless','-u','NONE','-i','NONE','-l',str(script)],env=env,capture_output=True,text=True,timeout=8)
+            assert result.returncode==0,result.stdout+result.stderr
+            generated=(box/'cache/nvim/lazygit-theme.yml').read_text()
+            for key,color in expected.items():
+                assert re.search(key+r':\s*-\s*"'+re.escape(color)+'"',generated), (key,color,generated)
+            print('PASS native Snacks: generated Lazygit theme agrees with every shared standalone theme role.')
     print('PASS native Neovim/Gruvbox: medium background, orange focus/selection and gold aqua replacement; no LazyVim startup or downloads.')
 else:
     print('SKIP native Neovim/Gruvbox highlights: local plugin/runtime unavailable.')

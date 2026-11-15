@@ -14,6 +14,8 @@ The default install includes these GNU Stow packages alongside `desktop`:
 
 These are ordinary application settings and affect their use in every desktop session. `--desktop-only` leaves those paths alone. Close btop before the first linking operation; its existing config is backed up using the same Stow workflow as the other apps. Graphite's terminal helper launches ordinary Kitty and inherits its configured shell. The normal Hyprland and KDE configuration paths remain independent.
 
+Colors come from the central palette. Some native configs are generated from templates; edit their `.in` sources rather than the linked output and run `python3 theme.py`. Kitty's main settings and Neovim plugin files remain directly editable. See [Appearance](THEME.md) for the source locations, generated files and reload workflow.
+
 ## Fastfetch and btop
 
 Run `fastfetch` or `btop` normally after linking the application packages. Their executables are recommended app dependencies in `install-deps.sh --review`; no new aliases or shell startup commands are installed.

@@ -22,11 +22,11 @@ Existing files occupying selected destinations are moved to `~/.local/state/grap
 
 ## Maintain
 
-Edit the linked files through their usual paths or inside `stow/`, then review and commit:
+Edit ordinary linked settings through their usual paths or inside `stow/`. Colors are maintained centrally in [`theme/palette.json`](theme/palette.json): run `python3 theme.py` after changing them. Generated configs use source templates under `theme/templates/`; edit their `.in` sources for other settings too. See [Appearance](docs/THEME.md) for the file mapping and reload steps. Review and commit the sources together with their generated files:
 
 ```bash
 git diff
-git add stow/
+git add stow/ theme/ theme.py
 git commit -m "Update configuration"
 git push
 ```
@@ -43,6 +43,8 @@ Most edits are live through the symlinks; reload or restart affected application
 | `bash install-deps.sh --help` | Package review and optional categories |
 | `bash install-deps.sh --review --optional=obs` | Include optional OBS dependencies |
 | `bash verify-setup.sh --verbose` | Full link/config/session diagnostics |
+| `python3 theme.py` | Regenerate app themes from the central palette |
+| `python3 theme.py --check` | Check generated themes without writing |
 
 Only configuration, desktop helpers and project documentation belong in this repository. Keys, credentials, histories, caches, downloads and migration backups stay outside it. [Application configuration](docs/APPLICATIONS.md) covers shell integration and LazyVim first launch.
 

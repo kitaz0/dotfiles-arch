@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -53,7 +54,7 @@ ColumnLayout {
     }
     Caption {
         text: "Delays start from your last activity. Screen off leaves the computer running; suspend puts it to sleep."
-        color: "#a89984"; Layout.fillWidth: true
+        color: Theme.muted; Layout.fillWidth: true
     }
     Repeater {
         model: [ { label: "Lock screen after", key: "lock" }, { label: "Screen off after", key: "screenOff" }, { label: "Suspend after", key: "suspend" } ]
@@ -72,15 +73,15 @@ ColumnLayout {
                 currentIndex: root.preferences ? root.delays.findIndex(d => d.seconds === root.preferences[root.source][row.modelData.key]) : 0
                 onActivated: root.edit(row.modelData.key, currentValue)
                 Accessible.name: row.modelData.label
-                palette.window: "#3c3836"; palette.base: "#282828"; palette.text: "#ebdbb2"
-                palette.button: "#3c3836"; palette.buttonText: "#ebdbb2"; palette.windowText: "#ebdbb2"
-                palette.highlight: "#fe8019"; palette.highlightedText: "#282828"; palette.mid: "#665c54"
+                palette.window: Theme.surface; palette.base: Theme.background; palette.text: Theme.foreground
+                palette.button: Theme.surface; palette.buttonText: Theme.foreground; palette.windowText: Theme.foreground
+                palette.highlight: Theme.accent; palette.highlightedText: Theme.background; palette.mid: Theme.border
                 font.family: "Noto Sans"; font.pixelSize: 13
-                background: Rectangle { radius: 9; color: choice.down ? "#665c54" : choice.hovered ? "#504945" : "#3c3836"; border.color: choice.activeFocus ? "#fe8019" : "#665c54" }
+                background: Rectangle { radius: 9; color: choice.down ? Theme.border : choice.hovered ? Theme.elevated : Theme.surface; border.color: choice.activeFocus ? Theme.accent : Theme.border }
             }
         }
     }
-    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: "#665c54" }
+    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.border }
     RowLayout {
         Layout.fillWidth: true
         Caption { text: "Lock before suspend"; Layout.fillWidth: true }
@@ -91,11 +92,11 @@ ColumnLayout {
             onRequested: root.edit("lockBeforeSleep", !activeState)
         }
     }
-    Caption { text: "Applies to both power sources, including lid-close suspend. Manual locking stays available."; color: "#a89984"; Layout.fillWidth: true }
+    Caption { text: "Applies to both power sources, including lid-close suspend. Manual locking stays available."; color: Theme.muted; Layout.fillWidth: true }
     Item { Layout.fillHeight: true }
     Caption {
         text: root.message || (root.dirty ? "Unsaved changes" : "Applies only in Graphite.")
-        color: root.failed ? "#fb4934" : "#a89984"; Layout.fillWidth: true
+        color: root.failed ? Theme.red : Theme.muted; Layout.fillWidth: true
     }
     RowLayout {
         Layout.fillWidth: true

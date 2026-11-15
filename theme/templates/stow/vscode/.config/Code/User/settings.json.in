@@ -1,0 +1,100 @@
+{
+  "workbench.colorTheme": "Gruvbox Dark Medium",
+  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "cmake.debugConfig": {
+    "type": "lldb",
+    "console": "internalConsole"
+  },
+  "cmake.buildBeforeRun": true,
+  "workbench.colorCustomizations": {
+    "[Gruvbox Dark Medium]": {
+      "editor.background": "{{background}}",
+      "editor.foreground": "{{foreground}}",
+      "focusBorder": "{{accent}}",
+      "activityBar.activeBorder": "{{accent}}",
+      "tab.activeBorderTop": "{{accent}}",
+      "button.background": "{{accent}}",
+      "button.foreground": "{{background}}",
+      "button.hoverBackground": "{{secondary}}",
+      "progressBar.background": "{{accent}}",
+      "editorCursor.foreground": "{{accent}}",
+      "terminalCursor.foreground": "{{accent}}",
+      "list.activeSelectionBackground": "{{accent}}",
+      "list.activeSelectionForeground": "{{background}}",
+      "list.highlightForeground": "{{secondary}}",
+      "textLink.foreground": "{{secondary}}",
+      "textLink.activeForeground": "{{accent}}",
+      "terminal.background": "{{background}}",
+      "terminal.foreground": "{{foreground}}",
+      "terminal.ansiCyan": "{{gold}}",
+      "terminal.ansiBrightCyan": "{{secondary}}",
+      "selection.background": "{{gold}}80",
+      "scrollbarSlider.activeBackground": "{{gold}}",
+      "list.inactiveSelectionForeground": "{{gold}}",
+      "tab.activeBorder": "{{gold}}",
+      "editor.selectionBackground": "{{gold}}40",
+      "editor.hoverHighlightBackground": "{{gold}}50",
+      "editorBracketHighlight.foreground3": "{{gold}}",
+      "editorSuggestWidget.highlightForeground": "{{gold}}",
+      "merge.incomingHeaderBackground": "{{gold}}40",
+      "merge.incomingContentBackground": "{{gold}}20",
+      "editorOverviewRuler.incomingContentForeground": "{{gold}}"
+    }
+  },
+  "editor.tokenColorCustomizations": {
+    "[Gruvbox Dark Medium]": {
+      "textMateRules": [
+        {
+          "scope": [
+            "entity.function",
+            "entity.name.function.function-call",
+            "entity.name.function.python",
+            "entity.name.function.static",
+            "entity.name.selector",
+            "entity.name.tag",
+            "entity.name.variable.field.cs",
+            "entity.name.variable.local.cs",
+            "keyword.control.directive",
+            "keyword.control.module",
+            "keyword.operator",
+            "keyword.other.documentation.javadoc",
+            "keyword.other.import.java",
+            "keyword.other.package.java",
+            "keyword.other.using.cs",
+            "markup.fenced_code.block",
+            "markup.inline.raw",
+            "meta.function.python",
+            "meta.selector",
+            "punctuation.tag",
+            "source.go keyword.import",
+            "source.go keyword.package",
+            "source.reason keyword.control.less",
+            "string.interpolated.backtick.shell",
+            "string.interpolated.dollar.shell",
+            "string.quasi",
+            "support.class.latex",
+            "text.html entity.name.tag",
+            "text.html punctuation.tag",
+            "variable.other.readwrite.cs"
+          ],
+          "settings": {
+            "foreground": "{{secondary}}"
+          }
+        },
+        {
+          "scope": [
+            "entity.name.method",
+            "entity.name.method.function-call",
+            "entity.name.static.function-call",
+            "support.function.git-rebase",
+            "support.type.property-name"
+          ],
+          "settings": {
+            "foreground": "{{gold}}"
+          }
+        }
+      ]
+    }
+  }
+}

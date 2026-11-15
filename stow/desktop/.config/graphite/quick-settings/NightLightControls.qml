@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Io
@@ -33,7 +34,7 @@ ColumnLayout {
     Caption {
         text: !root.snapshot.installed ? "Install Hyprsunset to use warmer screen colors."
             : root.snapshot.enabled ? "Warmer screen colors reduce blue light." : "Off · screen colors are unchanged."
-        color: "#a89984"; Layout.fillWidth: true
+        color: Theme.muted; Layout.fillWidth: true
     }
     LevelSlider {
         label: "Warmth"; Layout.fillWidth: true
@@ -46,8 +47,8 @@ ColumnLayout {
         }
         Accessible.name: "Night Light warmth"
     }
-    Caption { visible: root.snapshot.available; text: root.snapshot.temperature + " K · lower is warmer"; color: "#a89984"; Layout.fillWidth: true }
-    Caption { visible: root.message !== ""; text: root.message; color: "#fb4934"; Layout.fillWidth: true }
+    Caption { visible: root.snapshot.available; text: root.snapshot.temperature + " K · lower is warmer"; color: Theme.muted; Layout.fillWidth: true }
+    Caption { visible: root.message !== ""; text: root.message; color: Theme.red; Layout.fillWidth: true }
     Process {
         id: query
         command: ["timeout", "4s", "bash", root.helpers + "night-light.sh", "status"]

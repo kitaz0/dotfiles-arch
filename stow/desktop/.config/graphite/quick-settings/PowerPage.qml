@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -44,10 +45,10 @@ ColumnLayout {
         visible: root.hasBattery
         Layout.fillWidth: true
         from: 0; to: 1; value: root.hasBattery ? root.battery.percentage : 0
-        background: Rectangle { implicitHeight: 8; radius: 4; color: "#3c3836" }
+        background: Rectangle { implicitHeight: 8; radius: 4; color: Theme.surface }
         contentItem: Item {
             implicitHeight: 8
-            Rectangle { width: parent.width * chargeBar.visualPosition; height: parent.height; radius: 4; color: "#b8bb26" }
+            Rectangle { width: parent.width * chargeBar.visualPosition; height: parent.height; radius: 4; color: Theme.green }
         }
     }
     Caption {
@@ -63,9 +64,9 @@ ColumnLayout {
     Caption {
         visible: root.hasBattery && Math.abs(root.battery.changeRate) > 0
         text: (root.charging ? "Charging power: " : "Power consumption: ") + Math.abs(root.battery.changeRate).toFixed(1) + " W"
-        color: "#a89984"; Layout.fillWidth: true
+        color: Theme.muted; Layout.fillWidth: true
     }
-    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: "#665c54" }
+    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.border }
     Caption { text: "Power mode"; font.bold: true }
     Repeater {
         model: root.profiles
@@ -78,8 +79,8 @@ ColumnLayout {
             onClicked: root.setProfile(modelData)
         }
     }
-    Caption { visible: root.profilesLoaded && !root.busy && root.profiles.length === 0; text: "No active power profile service is available."; color: "#a89984"; Layout.fillWidth: true }
-    Caption { visible: root.message !== ""; text: root.message; color: "#fb4934"; Layout.fillWidth: true }
+    Caption { visible: root.profilesLoaded && !root.busy && root.profiles.length === 0; text: "No active power profile service is available."; color: Theme.muted; Layout.fillWidth: true }
+    Caption { visible: root.message !== ""; text: root.message; color: Theme.red; Layout.fillWidth: true }
     Item { Layout.fillHeight: true }
     ActionButton { text: "Settings"; Layout.fillWidth: true; onClicked: root.openSettings() }
     Process {

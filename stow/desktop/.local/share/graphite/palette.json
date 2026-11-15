@@ -15,5 +15,13 @@
   "tertiary": "#d3869b",
   "orange": "#fe8019",
   "green": "#b8bb26",
-  "gold": "#d79921"
+  "gold": "#d79921",
+  "background_hard": "#1d2021",
+  "dim": "#928374",
+  "red_dim": "#cc241d",
+  "green_dim": "#98971a",
+  "blue_dim": "#458588",
+  "purple_dim": "#b16286",
+  "orange_dim": "#d65d0e",
+  "gold_dim": "#b57614"
 }

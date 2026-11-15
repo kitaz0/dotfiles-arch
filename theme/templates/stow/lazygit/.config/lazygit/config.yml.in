@@ -1,0 +1,11 @@
+# Graphite / Gruvbox. Keep shortcut text readable on selected help rows.
+gui:
+  theme:
+    activeBorderColor: ["{{accent}}", "bold"]
+    inactiveBorderColor: ["{{border}}"]
+    searchingActiveBorderColor: ["{{secondary}}", "bold"]
+    optionsTextColor: ["{{secondary}}"]
+    defaultFgColor: ["{{foreground}}"]
+    selectedLineBgColor: ["{{surface}}"]
+    selectedLineFgColor: ["{{foreground}}", "bold"]
+    inactiveViewSelectedLineBgColor: ["{{surface}}"]

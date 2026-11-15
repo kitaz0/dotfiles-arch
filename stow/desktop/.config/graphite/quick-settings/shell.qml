@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -149,7 +150,7 @@ ShellRoot {
                 height: Math.min(root.page === "displays" ? 430 : 600, popup.height - 24)
                 x: root.page === "displays" ? (popup.width - width) / 2 : popup.width - width - 12
                 y: root.page === "displays" ? Math.max(12, (popup.height + popup.barBottom - height) / 2 - popup.barBottom) : 12
-                radius: 14; color: "#282828"; border.color: "#665c54"
+                radius: 14; color: Theme.background; border.color: Theme.border
                 // Empty space inside the card must not reach the backdrop.
                 MouseArea { anchors.fill: parent; acceptedButtons: Qt.AllButtons }
                 ColumnLayout {
@@ -204,7 +205,7 @@ ShellRoot {
                         Component { id: mixerPage; AudioPage { streams: true } }
                         Component { id: displayPage; DisplayChoices { displays: root.displays; busy: root.busy || displayQuery.running; onApply: (mode, output) => root.act("display-" + mode, output); onConfigure: root.launch(["wdisplays"]) } }
                     }
-                    Caption { text: root.message || (root.busy ? "Applying..." : ""); color: "#fb4934"; Layout.fillWidth: true; Layout.preferredHeight: 30; maximumLineCount: 2; elide: Text.ElideRight }
+                    Caption { text: root.message || (root.busy ? "Applying..." : ""); color: Theme.red; Layout.fillWidth: true; Layout.preferredHeight: 30; maximumLineCount: 2; elide: Text.ElideRight }
                 }
             }
         }

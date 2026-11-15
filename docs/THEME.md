@@ -4,7 +4,32 @@ Graphite uses the **Gruvbox Dark palette** for its bar, settings, terminal, laun
 
 The primary accent is Gruvbox bright orange (`#fe8019`) for focus, selection, controls and active workspaces. Gruvbox bright yellow (`#fabd2f`) is the secondary accent for connectivity, displays and links; its muted gold (`#d79921`) supplies darker variants. Gruvbox bright purple (`#d3869b`) accents clipboard, notifications and secondary details. The active window border blends orange into gold. Healthy battery values stay green and errors red, preserving their meaning. Kitty's cyan ANSI slots and the editors' aqua highlights use the same yellow/gold pair. Starship adapts the Tokyo Night preset with rounded, progressively darker Gruvbox gray segments, cream text, and small orange Git/prompt accents. VS Code uses Gruvbox Dark Medium to match the `#282828` backgrounds in Kitty, Neovim, btop and the desktop.
 
-The shared palette reference is `stow/desktop/.local/share/graphite/palette.json`. Native applications keep their own theme files; `docs/test-theme.py`, included in the audit, checks their accent roles against that reference. Changing the reference alone does not update application themes: update their native files together and run the audit. There is no login-time rewrite. Fastfetch and btop use the same orange/gold/purple roles; see [Applications](APPLICATIONS.md).
+The single editable palette is [`theme/palette.json`](../theme/palette.json). `colors` defines named Gruvbox swatches once; `roles` assigns them to backgrounds, text, accents and status colors. For example, `"accent": "bright_orange"` selects the orange swatch. Change a role to another swatch to change its use throughout the setup, or edit a swatch value to change every role that uses it. The `secondary`/`gold`/`gold_dim` roles give you independent control over the bright and darker secondary variants.
+
+After editing the palette, run from the checkout:
+
+```bash
+python3 theme.py
+python3 theme.py --check
+git diff
+```
+
+The first command updates native theme files under `stow/`; `--check` reports missing or stale generated files without writing anything. `--help` describes the command. Commit both the palette/source changes and generated outputs. Python 3.9+ is only needed for editing themes; installing and running the setup uses the committed native files. Nothing generates themes at login, rewrites home files, or restarts applications automatically. The audit includes the drift check and disposable palette-edit tests.
+
+Waybar and SwayNC import the same generated `graphite/theme/colors.css`. Qt Quick components reference `Theme.js`, Kitty includes `colors.conf`, and Neovim reads its generated `graphite.palette` Lua module. Each app package works independently of the desktop package.
+
+Hyprland, Hyprlock, Fuzzel, Starship, btop, Fastfetch, Lazygit, VS Code, private Qt widgets, Dolphin/KDE colors, display SVGs and the optional Zsh prompt use native formats rendered from `theme/templates/`. Templates reference roles such as `{{accent}}`, with `|hex`, `|rgb` or `|ansi` where a format requires it. The [template map](../theme/templates.json) lists each template and its generated file. To change non-color settings in one of these generated configs, edit its matching `.in` template and run the generator; direct edits to its output are overwritten on the next generation. CSS, QML, Kitty's main settings and Neovim's plugin settings remain directly editable. `~/.local/share/graphite/palette.json` is a generated export, not another source of colors. Binary wallpaper artwork and third-party theme defaults are not recolored by this command.
+
+When first updating to shared theme files, refresh the new links before reloading applications:
+
+```bash
+bash apply-config.sh --apply
+hyprctl reload
+bash ~/.local/lib/graphite/waybar.sh reload
+swaync-client --reload-css
+```
+
+Use `--desktop-only` on the Stow command if that is your installed scope. Close/reopen quick settings after refreshing the links. Reopen affected applications as needed; Kitty can reload its config with Ctrl+Shift+F5. Subsequent palette edits only need generation and the relevant reloads, unless new files were added. No logout is required. Fastfetch and btop use the same orange/gold/purple roles; see [Applications](APPLICATIONS.md).
 
 Input-method settings use an application-local Gruvbox stylesheet with Qt's Fusion style. The EN/あ right-click launcher applies it to `fcitx5-config-qt`; it does not alter Plasma's theme. Reopen that window after a theme update.
 

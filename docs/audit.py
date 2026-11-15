@@ -33,6 +33,8 @@ for p in [*root.glob('*.sh'), *(root/'stow/desktop').rglob('*.sh')]:
         assert not line.startswith('\t') and (len(line)-len(line.lstrip(' '))) % 4 == 0, (p,line)
 log('PASS: shell syntax, formatting, LF text and common private-key/token signatures.')
 
+log(run([sys.executable, 'theme.py', '--check']).strip())
+
 packages = ['desktop', 'kitty', 'starship', 'nvim', 'vscode', 'fastfetch', 'btop', 'lazygit']
 owned = {}
 for package in packages:

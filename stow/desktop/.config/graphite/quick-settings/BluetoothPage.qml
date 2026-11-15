@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -53,7 +54,7 @@ ColumnLayout {
                             }
                         }
                     }
-                    Caption { visible: adapter.modelData.discovering; text: adapter.ownsScan ? "Scanning for nearby devices…" : "Another application is scanning."; color: "#a89984" }
+                    Caption { visible: adapter.modelData.discovering; text: adapter.ownsScan ? "Scanning for nearby devices…" : "Another application is scanning."; color: Theme.muted }
                     Repeater {
                         model: adapter.modelData.devices
                         delegate: ColumnLayout {
@@ -68,9 +69,9 @@ ColumnLayout {
                                     Caption { text: device.modelData.name; font.bold: device.modelData.connected; Layout.fillWidth: true; maximumLineCount: 1; elide: Text.ElideRight }
                                     Caption {
                                         text: (device.modelData.blocked ? "Blocked" : device.modelData.connected ? "Connected" : device.modelData.paired ? "Paired" : "Available") + (device.modelData.batteryAvailable ? " \u00b7 " + Math.round(device.modelData.battery * 100) + "%" : "")
-                                        color: "#a89984"; font.pixelSize: 11; Layout.fillWidth: true; maximumLineCount: 1; elide: Text.ElideRight
+                                        color: Theme.muted; font.pixelSize: 11; Layout.fillWidth: true; maximumLineCount: 1; elide: Text.ElideRight
                                     }
-                                    Caption { text: device.modelData.address; color: "#a89984"; font.pixelSize: 10; Layout.fillWidth: true; maximumLineCount: 1; elide: Text.ElideRight }
+                                    Caption { text: device.modelData.address; color: Theme.muted; font.pixelSize: 10; Layout.fillWidth: true; maximumLineCount: 1; elide: Text.ElideRight }
                                 }
                                 ActionButton {
                                     text: device.modelData.connected ? "Disconnect" : device.modelData.paired ? "Connect" : "Pair…"
@@ -93,12 +94,12 @@ ColumnLayout {
                                     }
                                 }
                             }
-                            Rectangle { color: "#665c54"; implicitHeight: 1; Layout.fillWidth: true }
+                            Rectangle { color: Theme.border; implicitHeight: 1; Layout.fillWidth: true }
                         }
                     }
                 }
             }
         }
     }
-    Caption { text: "Pairing opens the existing BlueDevil authentication wizard. The popup closes first so PIN and confirmation prompts can receive focus."; color: "#a89984"; Layout.fillWidth: true }
+    Caption { text: "Pairing opens the existing BlueDevil authentication wizard. The popup closes first so PIN and confirmation prompts can receive focus."; color: Theme.muted; Layout.fillWidth: true }
 }

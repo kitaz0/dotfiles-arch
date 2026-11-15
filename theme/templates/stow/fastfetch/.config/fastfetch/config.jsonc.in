@@ -1,0 +1,27 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/fastfetch/arch.txt",
+    "color": { "1": "{{accent}}", "2": "{{secondary}}", "3": "{{foreground}}" },
+    "padding": { "right": 4 }
+  },
+  "display": {
+    "separator": "  ",
+    "color": { "keys": "{{accent}}", "output": "{{foreground}}" },
+    "showErrors": false
+  },
+  "modules": [
+    { "type": "custom", "format": "{#{{accent|ansi}}}GRAPHITE{#}  {#{{muted|ansi}}}/ ARCH LINUX{#}" },
+    { "type": "custom", "format": "{#{{border|ansi}}}──────────────────────────────────{#}" },
+    { "type": "os", "key": "OS      ", "format": "{name}" },
+    { "type": "kernel", "key": "Kernel  ", "format": "{release}" },
+    { "type": "wm", "key": "Desktop ", "format": "{pretty-name}" },
+    { "type": "terminal", "key": "Terminal", "format": "{pretty-name}" },
+    { "type": "cpu", "key": "CPU     ", "keyColor": "{{secondary}}", "format": "{name}" },
+    { "type": "gpu", "key": "GPU     ", "keyColor": "{{secondary}}", "format": "{vendor} {name}" },
+    { "type": "memory", "key": "Memory  ", "keyColor": "{{tertiary}}", "format": "{used} / {total}" },
+    { "type": "custom", "format": "{#{{border|ansi}}}──────────────────────────────────{#}" },
+    { "type": "custom", "format": "{#{{accent|ansi}}}● ●{#}  {#{{secondary|ansi}}}● ●{#}  {#{{tertiary|ansi}}}● ●{#}  {#{{foreground|ansi}}}● ●{#}" }
+  ]
+}

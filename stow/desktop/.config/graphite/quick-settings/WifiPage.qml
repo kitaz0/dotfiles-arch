@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -12,8 +13,8 @@ ColumnLayout {
     signal advanced()
     spacing: 10
     onVisibleChanged: { if (!visible) { passwordNetwork = null; password.clear(); } }
-    Caption { text: !Networking.wifiHardwareEnabled ? "Hardware radio blocked" : !root.devices.length ? "No Wi-Fi device / NetworkManager unavailable" : Networking.wifiEnabled ? "Available networks" : "Wi-Fi is off"; color: "#a89984"; Layout.fillWidth: true }
-    Caption { text: root.message; visible: text !== ""; color: "#fb4934"; Layout.fillWidth: true }
+    Caption { text: !Networking.wifiHardwareEnabled ? "Hardware radio blocked" : !root.devices.length ? "No Wi-Fi device / NetworkManager unavailable" : Networking.wifiEnabled ? "Available networks" : "Wi-Fi is off"; color: Theme.muted; Layout.fillWidth: true }
+    Caption { text: root.message; visible: text !== ""; color: Theme.red; Layout.fillWidth: true }
     ColumnLayout {
         visible: root.passwordNetwork !== null
         Layout.fillWidth: true
@@ -24,11 +25,11 @@ ColumnLayout {
             echoMode: TextInput.Password
             placeholderText: "Network password"
             selectByMouse: true
-            color: "#ebdbb2"; placeholderTextColor: "#a89984"
-            selectionColor: "#fe8019"; selectedTextColor: "#282828"
+            color: Theme.foreground; placeholderTextColor: Theme.muted
+            selectionColor: Theme.accent; selectedTextColor: Theme.background
             font.family: "Noto Sans"; font.pixelSize: 13
             padding: 10
-            background: Rectangle { radius: 9; color: "#3c3836"; border.color: password.activeFocus ? "#fe8019" : "#665c54" }
+            background: Rectangle { radius: 9; color: Theme.surface; border.color: password.activeFocus ? Theme.accent : Theme.border }
             Accessible.name: "Wi-Fi password"
             onAccepted: submit.clicked()
         }
@@ -79,7 +80,7 @@ ColumnLayout {
                             }
                             Caption {
                                 visible: networkRow.modelData.connected
-                                text: "\u2713"; color: "#fe8019"
+                                text: "\u2713"; color: Theme.accent
                                 Accessible.name: "Connected network"
                             }
                             ColumnLayout {
@@ -91,7 +92,7 @@ ColumnLayout {
                                 }
                                 Caption {
                                     text: Math.round(networkRow.modelData.signalStrength * 100) + "% \u00b7 " + WifiSecurityType.toString(networkRow.modelData.security)
-                                    color: "#a89984"; font.pixelSize: 11
+                                    color: Theme.muted; font.pixelSize: 11
                                     Layout.fillWidth: true; maximumLineCount: 1; elide: Text.ElideRight
                                 }
                             }

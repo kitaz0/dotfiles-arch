@@ -1,0 +1,33 @@
+/* Application-local Gruvbox styling for the Qt input settings window. */
+QWidget {
+    background-color: {{background}};
+    color: {{foreground}};
+    selection-background-color: {{accent}};
+    selection-color: {{background}};
+    font-family: "Noto Sans";
+    font-size: 10pt;
+}
+QAbstractItemView, QLineEdit, QTextEdit, QPlainTextEdit, QComboBox, QSpinBox {
+    background-color: {{surface}};
+    alternate-background-color: {{elevated}};
+    border: 1px solid {{border}};
+    border-radius: 4px;
+    padding: 4px;
+}
+QAbstractItemView::item { padding: 4px; }
+QAbstractItemView::item:selected { background-color: {{accent}}; color: {{background}}; }
+QPushButton, QToolButton {
+    background-color: {{surface}};
+    border: 1px solid {{border}};
+    border-radius: 5px;
+    padding: 6px 10px;
+}
+QPushButton:hover, QToolButton:hover { background-color: {{elevated}}; }
+QPushButton:pressed, QToolButton:pressed { background-color: {{border}}; }
+QPushButton:focus, QLineEdit:focus, QComboBox:focus { border-color: {{accent}}; }
+QWidget:disabled { color: {{muted}}; }
+QTabBar::tab { background-color: {{surface}}; padding: 7px 12px; }
+QTabBar::tab:selected { background-color: {{accent}}; color: {{background}}; }
+QGroupBox { border: 1px solid {{border}}; border-radius: 5px; margin-top: 12px; padding-top: 10px; }
+QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; }
+QToolTip { background-color: {{surface}}; color: {{foreground}}; border: 1px solid {{border}}; }

@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -64,8 +65,8 @@ ScrollView {
                         }
                     }
                 }
-                Caption { text: row.modelData.name; color: "#a89984"; font.pixelSize: 10; Layout.fillWidth: true; elide: Text.ElideMiddle; maximumLineCount: 1 }
-                Rectangle { color: "#665c54"; implicitHeight: 1; Layout.fillWidth: true }
+                Caption { text: row.modelData.name; color: Theme.muted; font.pixelSize: 10; Layout.fillWidth: true; elide: Text.ElideMiddle; maximumLineCount: 1 }
+                Rectangle { color: Theme.border; implicitHeight: 1; Layout.fillWidth: true }
             }
         }
         // Quickshell 0.3.2 runtime API; incomplete generated qmltypes.
@@ -73,6 +74,6 @@ ScrollView {
         Caption { visible: root.streams && Pipewire.ready && !Pipewire.nodes.values.some(n => n.audio !== null && n.isStream); text: "No active application audio streams."; Layout.fillWidth: true }
         // qmllint enable missing-property
         Caption { visible: !Pipewire.ready; text: "PipeWire is unavailable or connecting." }
-        Caption { visible: !root.streams; text: "Default-device changes affect routing according to your audio session manager. Hardware profiles and custom routing remain available through pavucontrol."; Layout.fillWidth: true; color: "#a89984" }
+        Caption { visible: !root.streams; text: "Default-device changes affect routing according to your audio session manager. Hardware profiles and custom routing remain available through pavucontrol."; Layout.fillWidth: true; color: Theme.muted }
     }
 }

@@ -1,0 +1,25 @@
+[main]
+keyboard-focus=on-demand
+exit-on-keyboard-focus-loss=yes
+layer=top
+launch-prefix=sh -c 'exec "$HOME/.local/lib/graphite/launch-app.sh" "$@"' graphite-launch
+font=Noto Sans:size=11,JetBrainsMono Nerd Font:size=11
+terminal=sh -c 'exec "$HOME/.local/lib/graphite/terminal.sh" "$@"' graphite-terminal -e
+icon-theme=breeze-dark
+icons-enabled=yes
+prompt=❯ 
+width=42
+lines=9
+horizontal-pad=18
+vertical-pad=14
+[colors]
+background={{background|hex}}ff
+text={{foreground|hex}}ff
+match={{accent|hex}}ff
+selection={{elevated|hex}}ff
+selection-text={{foreground|hex}}ff
+selection-match={{accent|hex}}ff
+border={{border|hex}}ff
+[border]
+width=2
+radius=7

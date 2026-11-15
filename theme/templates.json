@@ -1,0 +1,21 @@
+{
+  "stow/kitty/.config/kitty/colors.conf.in": "stow/kitty/.config/kitty/colors.conf",
+  "stow/desktop/.config/graphite/fuzzel/fuzzel.ini.in": "stow/desktop/.config/graphite/fuzzel/fuzzel.ini",
+  "stow/desktop/.config/graphite/hypr/hyprlock.conf.in": "stow/desktop/.config/graphite/hypr/hyprlock.conf",
+  "stow/desktop/.config/graphite/qt/widgets.qss.in": "stow/desktop/.config/graphite/qt/widgets.qss",
+  "stow/desktop/.config/graphite/dolphin/kdeglobals.in": "stow/desktop/.config/graphite/dolphin/kdeglobals",
+  "stow/desktop/.local/share/color-schemes/Gruvbox.colors.in": "stow/desktop/.local/share/color-schemes/Gruvbox.colors",
+  "stow/desktop/.local/share/graphite/optional/kdeglobals.in": "stow/desktop/.local/share/graphite/optional/kdeglobals",
+  "stow/desktop/.config/graphite/zsh/graphite.zsh.in": "stow/desktop/.config/graphite/zsh/graphite.zsh",
+  "stow/btop/.config/btop/themes/graphite.theme.in": "stow/btop/.config/btop/themes/graphite.theme",
+  "stow/fastfetch/.config/fastfetch/config.jsonc.in": "stow/fastfetch/.config/fastfetch/config.jsonc",
+  "stow/lazygit/.config/lazygit/config.yml.in": "stow/lazygit/.config/lazygit/config.yml",
+  "stow/starship/.config/starship.toml.in": "stow/starship/.config/starship.toml",
+  "stow/vscode/.config/Code/User/settings.json.in": "stow/vscode/.config/Code/User/settings.json",
+  "stow/desktop/.config/graphite/quick-settings/single.svg.in": "stow/desktop/.config/graphite/quick-settings/single.svg",
+  "stow/desktop/.config/graphite/quick-settings/extend.svg.in": "stow/desktop/.config/graphite/quick-settings/extend.svg",
+  "stow/desktop/.config/graphite/quick-settings/arrange.svg.in": "stow/desktop/.config/graphite/quick-settings/arrange.svg",
+  "stow/desktop/.config/graphite/quick-settings/mirror.svg.in": "stow/desktop/.config/graphite/quick-settings/mirror.svg",
+  "stow/desktop/.config/graphite/quick-settings/external.svg.in": "stow/desktop/.config/graphite/quick-settings/external.svg",
+  "stow/desktop/.config/graphite/hypr/graphite/appearance.lua.in": "stow/desktop/.config/graphite/hypr/graphite/appearance.lua"
+}

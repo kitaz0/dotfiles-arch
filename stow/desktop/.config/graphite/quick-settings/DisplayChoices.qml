@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -31,7 +32,7 @@ ColumnLayout {
     onBusyChanged: root.focusInitialChoice()
     Component.onCompleted: root.focusInitialChoice()
     Text {
-        Layout.fillWidth: true; wrapMode: Text.WordWrap; color: "#a89984"; font.pixelSize: 12
+        Layout.fillWidth: true; wrapMode: Text.WordWrap; color: Theme.muted; font.pixelSize: 12
         text: root.displays.map(d => d.id + (d.disabled ? " (off)" : d.mirrorOf && d.mirrorOf !== "none" ? " (mirroring)" : " (active, " + d.x + "," + d.y + ")")).join("\n")
     }
     ComboBox {
@@ -41,7 +42,7 @@ ColumnLayout {
         textRole: "id"
         Accessible.name: "Reference display"
         onActivated: root.focusChoice(0, 1)
-        palette.button: "#3c3836"; palette.buttonText: "#ebdbb2"; palette.base: "#3c3836"; palette.text: "#ebdbb2"; palette.highlight: "#fe8019"; palette.highlightedText: "#282828"
+        palette.button: Theme.surface; palette.buttonText: Theme.foreground; palette.base: Theme.surface; palette.text: Theme.foreground; palette.highlight: Theme.accent; palette.highlightedText: Theme.background
     }
     GridLayout {
         columns: 3; columnSpacing: 8; rowSpacing: 8; Layout.fillWidth: true
@@ -63,10 +64,10 @@ ColumnLayout {
                 enabled: !root.busy && (modelData.mode === "configure" || root.displays.length === 2 && reference.currentIndex >= 0)
                 opacity: enabled ? 1 : 0.4
                 Accessible.name: modelData.title + ". " + modelData.hint
-                background: Rectangle { radius: 9; color: tile.modelData.mode === root.currentMode ? "#504945" : "#3c3836"; border.width: tile.activeFocus ? 3 : 1; border.color: tile.activeFocus || tile.hovered ? "#fe8019" : "#665c54" }
+                background: Rectangle { radius: 9; color: tile.modelData.mode === root.currentMode ? Theme.elevated : Theme.surface; border.width: tile.activeFocus ? 3 : 1; border.color: tile.activeFocus || tile.hovered ? Theme.accent : Theme.border }
                 contentItem: ColumnLayout {
                     Image { source: Qt.resolvedUrl(tile.modelData.image); Layout.fillWidth: true; Layout.preferredHeight: 46; fillMode: Image.PreserveAspectFit; mirror: tile.modelData.mode === "left" }
-                    Text { text: tile.modelData.title; color: "#ebdbb2"; font.pixelSize: 13; Layout.alignment: Qt.AlignHCenter }
+                    Text { text: tile.modelData.title; color: Theme.foreground; font.pixelSize: 13; Layout.alignment: Qt.AlignHCenter }
                 }
                 function activate() {
                     if (!tile.enabled) return;
@@ -83,5 +84,5 @@ ColumnLayout {
             }
         }
     }
-    Text { text: "Arrows select · Enter or click activates · Escape cancels"; color: "#a89984"; font.pixelSize: 11; wrapMode: Text.WordWrap; Layout.fillWidth: true }
+    Text { text: "Arrows select · Enter or click activates · Escape cancels"; color: Theme.muted; font.pixelSize: 11; wrapMode: Text.WordWrap; Layout.fillWidth: true }
 }

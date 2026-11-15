@@ -1,0 +1,191 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+# Tokyo Night's rounded layout, using Graphite / Gruvbox colors.
+
+format = """
+[░▒▓](color_muted)\
+$os\
+$username\
+[](fg:color_muted bg:color_bg2)\
+$directory\
+[](fg:color_bg2 bg:color_bg1)\
+$git_branch\
+$git_status\
+[](fg:color_bg1 bg:color_bg0)\
+$c\
+$cpp\
+$rust\
+$golang\
+$nodejs\
+$bun\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+$docker_context\
+$conda\
+$pixi\
+[](fg:color_bg0 bg:color_bg_hard)\
+$time\
+[ ](fg:color_bg_hard)\
+$line_break$character"""
+
+palette = 'gruvbox_dark'
+
+[palettes.gruvbox_dark]
+color_fg0 = '{{foreground}}'
+color_bg0 = '{{background}}'
+color_bg1 = '{{surface}}'
+color_bg2 = '{{elevated}}'
+color_bg3 = '{{border}}'
+color_bg_hard = '{{background_hard}}'
+color_muted = '{{muted}}'
+color_gold = '{{secondary}}'
+color_green = '{{green}}'
+color_orange = '{{accent}}'
+color_purple = '{{tertiary}}'
+color_red = '{{red}}'
+color_yellow = '{{gold}}'
+
+[os]
+disabled = false
+style = "bg:color_muted fg:color_bg0"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
+
+[username]
+show_always = false
+style_user = "bg:color_muted fg:color_bg0"
+style_root = "bg:color_muted fg:color_red"
+format = '[ $user ]($style)'
+
+[directory]
+style = "fg:color_fg0 bg:color_bg2"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:color_bg1"
+format = '[[ $symbol $branch ](fg:color_orange bg:color_bg1)]($style)'
+
+[git_status]
+style = "bg:color_bg1"
+format = '[[($all_status$ahead_behind )](fg:color_orange bg:color_bg1)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[bun]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[c]
+symbol = " "
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[cpp]
+symbol = " "
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[php]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[java]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[python]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_bg0)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:color_bg0"
+format = '[[ $symbol( $context) ](fg:color_muted bg:color_bg0)]($style)'
+
+[conda]
+style = "bg:color_bg0"
+format = '[[ $symbol( $environment) ](fg:color_muted bg:color_bg0)]($style)'
+
+[pixi]
+style = "bg:color_bg0"
+format = '[[ $symbol( $version)( $environment) ](fg:color_muted bg:color_bg0)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_bg_hard"
+format = '[[  $time ](fg:color_muted bg:color_bg_hard)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:color_orange)'
+error_symbol = '[❯](bold fg:color_red)'
+vimcmd_symbol = '[❮](bold fg:color_muted)'
+vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
+vimcmd_replace_symbol = '[](bold fg:color_purple)'
+vimcmd_visual_symbol = '[](bold fg:color_yellow)'

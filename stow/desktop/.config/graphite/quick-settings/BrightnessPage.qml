@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import "Theme.js" as Theme
 import QtQuick
 import QtQuick.Layouts
 
@@ -16,9 +17,9 @@ ColumnLayout {
     }
     Caption {
         text: root.model.level < 0 ? "No accessible laptop backlight. External displays usually use their own brightness controls." : "Function-key changes update this slider automatically. External display brightness is controlled separately."
-        color: "#a89984"; Layout.fillWidth: true
+        color: Theme.muted; Layout.fillWidth: true
     }
-    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: "#665c54" }
+    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.border }
     NightLightControls { helpers: root.helpers; Layout.fillWidth: true }
     Item { Layout.fillHeight: true }
 }
