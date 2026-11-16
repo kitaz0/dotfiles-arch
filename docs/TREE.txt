@@ -24,12 +24,14 @@ hyprland-setup/
 |   |-- test-bindings.lua
 |   |-- test-bluetooth.py
 |   |-- test-bugfixes.py
+|   |-- test-capture.py
 |   |-- test-deployment.py
 |   |-- test-desktop-controls.py
 |   |-- test-displays.py
 |   |-- test-input-method.py
 |   |-- test-monitors.lua
 |   |-- test-night-light.py
+|   |-- test-notifications.py
 |   |-- test-packages.py
 |   |-- test-popup-state.js
 |   |-- test-power-panel.py
@@ -125,6 +127,7 @@ hyprland-setup/
 |   |       |       |-- audio-menu.sh
 |   |       |       |-- bluetooth-menu.sh
 |   |       |       |-- brightness.sh
+|   |       |       |-- capture-target.sh
 |   |       |       |-- clipboard.sh
 |   |       |       |-- connectivity-menu.sh
 |   |       |       |-- display-menu.sh
@@ -134,6 +137,7 @@ hyprland-setup/
 |   |       |       |-- lock.sh
 |   |       |       |-- network-menu.sh
 |   |       |       |-- night-light.sh
+|   |       |       |-- notification-status.sh
 |   |       |       |-- power-menu.sh
 |   |       |       |-- power-policy.sh
 |   |       |       |-- quick-settings-control.sh

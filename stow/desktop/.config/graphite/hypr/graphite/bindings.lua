@@ -16,8 +16,11 @@ run("SUPER + SHIFT + N", "swaync-client -d", { description = "Session | Toggle d
 script("SUPER + Escape", "power-menu.sh", nil, { description = "Session | Power menu" })
 script("Print", "screenshot.sh", "full", { description = "Capture | Full screenshot" })
 script("SUPER + Print", "screenshot.sh", "region", { description = "Capture | Region screenshot" })
+script("ALT + Print", "screenshot.sh", "window", { description = "Capture | Active window screenshot" })
 script("SHIFT + Print", "screenshot.sh", "annotate", { description = "Capture | Annotate screenshot" })
-script("SUPER + SHIFT + R", "record.sh", "toggle", { description = "Capture | Toggle recording" })
+script("SUPER + SHIFT + R", "record.sh", "toggle region", { description = "Capture | Record region / stop current recording" })
+script("SUPER + CTRL + R", "record.sh", "toggle full", { description = "Capture | Record full screen / stop current recording" })
+script("SUPER + ALT + R", "record.sh", "toggle window", { description = "Capture | Record active window / stop current recording" })
 run("SUPER + O", "command -v obs >/dev/null && obs || notify-send 'OBS unavailable' 'Review the optional obs package group'", { description = "Applications | OBS Studio" })
 for _, direction in ipairs({"left", "right", "up", "down"}) do
     hl.bind("SUPER + " .. direction, hl.dsp.focus({ direction = direction }), { description = "Windows | Focus " .. direction })

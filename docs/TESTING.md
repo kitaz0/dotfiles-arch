@@ -17,8 +17,8 @@ After entering Graphite:
 4. Copy text and an image, restore through the clipboard icon and Super+Shift+V, then paste into suitable apps. Test an empty history and a removed entry.
 5. Open three windows: test focus arrows, workspace-local swap shortcuts and Super+F1 search.
 6. Connect/disconnect Wi-Fi and Bluetooth; test required authentication and unavailable hardware.
-7. Capture a screenshot and short recording; play it back. Check OBS separately if installed.
-8. Check application dark mode, file dialogs, USB mount/eject and notifications.
+7. Test full, region and active-window screenshots. Record a short region, full-screen and window sample; stop each with a different quick-record shortcut and play the files back. Confirm only one recorder runs, switching modes needs a second press, cancelling selection leaves no file, and window capture uses its starting rectangle. Check OBS separately if installed.
+8. Check application dark mode, file dialogs, USB mount/eject and notifications. Send a notification: the bell should ring/highlight; open and close the center to acknowledge it without clearing history. A new arrival must ring again. Repeat with Do Not Disturb enabled: the bell stays crossed and the unread highlight changes. Reload Waybar and confirm acknowledged history stays acknowledged.
 9. Test manual lock, idle, suspend/resume and lid-close while keeping a TTY available. Verify the lock screen repaints, accepts input and reveals the desktop after successful authentication.
 10. Log out cleanly, enter another session/TTY, and verify no Graphite helper processes remain. Preview unstowing outside Graphite and verify the migration backup before relying on it for recovery.
 

@@ -66,23 +66,25 @@
   "tray": {
     "icon-size": 20,
     "spacing": 2,
-    "ignore-list": ["Fcitx"]
+    "ignore-list": [
+      "Fcitx"
+    ]
   },
   "custom/notifications": {
-    "exec": "swaync-client --skip-wait --subscribe-waybar",
+    "exec": "bash ~/.local/lib/graphite/notification-status.sh watch",
     "return-type": "json",
     "restart-interval": 2,
     "exec-on-event": false,
     "format": "{icon}",
     "format-icons": {
-      "none": "",
-      "notification": "",
-      "inhibited-none": "",
-      "inhibited-notification": "",
-      "dnd-none": "",
-      "dnd-notification": "",
-      "dnd-inhibited-none": "",
-      "dnd-inhibited-notification": ""
+      "none": "󰂚",
+      "notification": "󰂞",
+      "inhibited-none": "󰂚",
+      "inhibited-notification": "󰂞",
+      "dnd-none": "󰂛",
+      "dnd-notification": "󰂛",
+      "dnd-inhibited-none": "󰂛",
+      "dnd-inhibited-notification": "󰂛"
     },
     "tooltip": false,
     "on-click": "bash ~/.local/lib/graphite/quick-settings.sh notifications",

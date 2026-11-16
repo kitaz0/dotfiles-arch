@@ -27,8 +27,11 @@ Super is the Windows/logo key. These are the complete generated compositor short
 | Super+Shift+N | Toggle Do Not Disturb |
 | Print | Capture all outputs to PNG and copy |
 | Super+Print | Select region, save and copy PNG |
+| Alt+Print | Capture the active window, save and copy PNG |
 | Shift+Print | Select region, capture/copy original, open Satty annotation |
-| Super+Shift+R | Start selected-region quick recording / stop and finalize |
+| Super+Shift+R | Record a selected region / stop the current quick recording |
+| Super+Ctrl+R | Record the focused screen / stop the current quick recording |
+| Super+Alt+R | Record the active window rectangle / stop the current quick recording |
 | Volume up/down | Change default sink by 5%; upward cap 100% |
 | Audio mute | Toggle default sink mute |
 | Microphone mute | Toggle default input mute |
@@ -38,13 +41,15 @@ Super is the Windows/logo key. These are the complete generated compositor short
 
 The sun icon also opens Night Light controls on desktops without a laptop backlight. For terminal use, `night-light.sh start|status|on|off|temperature K` manages Graphite's filter; `--help` describes its range and session lifetime.
 
-Brightness/audio/media keys work while locked. Application/clipboard/recording shortcuts do not. Lock and power commands are also available through scripts in `~/.local/lib/graphite`. `record.sh start|stop|toggle|status`, `clipboard.sh pick|clear`, and `screenshot.sh full|region|annotate` are the command forms.
+Brightness/audio/media keys work while locked. Application/clipboard/recording shortcuts do not. Lock and power commands are also available through scripts in `~/.local/lib/graphite`. `record.sh start|toggle [region|full|window]` (plus `stop|status`), `clipboard.sh pick|clear`, and `screenshot.sh full|region|window|annotate` are the command forms.
 
 Fuzzel: type to search, arrows to navigate, Enter selects/launches, Escape cancels. These same controls apply to clipboard and power menus. Logout/reboot/power off need a second Confirm selection; Cancel is first. Suspend goes through logind and hypridle's pre-sleep lock handling.
 
+All three quick-record shortcuts share one recorder. While it is running, any of them stops and finalizes it; press again after it stops to start another mode. Full-screen recording uses the focused monitor. Window capture uses the visible rectangle on the window's assigned monitor; recording keeps those initial bounds, so keep the window in place and unobscured.
+
 Satty's own Save/Copy controls export annotations; the raw PNG is saved before the editor opens. OBS hotkeys are defined manually inside its profile as described in `OBS.md`; no global OBS shortcuts conflict with quick recording.
 
-Waybar: click a device icon to open its settings; another device icon changes the page in the same window. The clipboard icon opens searchable history. Escape, Close, outside clicks and the same trigger dismiss settings. The bell opens SwayNC separately; right-click toggles Do Not Disturb and a crossed bell indicates it is enabled. Click battery for its power panel, or hover for status and estimated time. See [QUICK-SETTINGS.md](QUICK-SETTINGS.md).
+Waybar: click a device icon to open its settings; another device icon changes the page in the same window. The clipboard icon opens searchable history. Escape, Close, outside clicks and the same trigger dismiss settings. The bell opens SwayNC separately. New arrivals show a ringing bell and gold highlight until the notification center is opened; opening it acknowledges them without clearing history. Right-click toggles Do Not Disturb; its crossed bell stays visible, with the gold highlight still indicating new arrivals. Click battery for its power panel, or hover for status and estimated time. See [QUICK-SETTINGS.md](QUICK-SETTINGS.md).
 
 Edit `~/.config/graphite/hypr/graphite/bindings.lua`, then run `hyprctl reload` and `hyprctl configerrors`. Configure idle timeouts through the battery popup's Settings page; see [Power settings](POWER.md).
 

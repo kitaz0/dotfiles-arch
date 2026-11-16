@@ -15,6 +15,7 @@ window#waybar { background: transparent; color: @foreground; }
 #network.wifi, #network.ethernet, #bluetooth.connected { color: @secondary; }
 #custom-displays { color: @secondary; }
 #custom-clipboard, #custom-notifications { color: @tertiary; }
+#custom-notifications.unread { color: @secondary; }
 #custom-brightness { color: @secondary; }
 /* Material Design icons share one size, including every audio state. */
 #wireplumber, #custom-brightness, #custom-displays { font-size: 20px; }

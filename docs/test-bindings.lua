@@ -24,6 +24,12 @@ assert(bindings["super + shift + left"].args.prev == true)
 assert(bindings["super + shift + right"].args.next == true)
 assert(bindings["super + f1"].args:find("shortcuts.sh", 1, true))
 assert(bindings["super + shift + v"].args:find("clipboard.sh", 1, true))
+assert(bindings["alt + print"].args:find("screenshot.sh", 1, true))
+assert(bindings["alt + print"].args:find("window", 1, true))
+for key, mode in pairs({["super + shift + r"]="region", ["super + ctrl + r"]="full", ["super + alt + r"]="window"}) do
+    assert(bindings[key].args:find("record.sh", 1, true))
+    assert(bindings[key].args:find("toggle " .. mode, 1, true))
+end
 for i = 1, 10 do
     assert(bindings["super + " .. (i % 10)].args.workspace == i)
     assert(bindings["super + shift + " .. (i % 10)].args.workspace == i)

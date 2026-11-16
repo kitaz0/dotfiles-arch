@@ -61,8 +61,9 @@ Only configuration, desktop helpers and project documentation belong in this rep
 | Super+Shift+V / clipboard bar icon | Search and restore clipboard history |
 | Super+N / Super+L | Notifications / lock |
 | Super+Shift+P | Visual display arrangement chooser |
-| Print / Super+Print / Shift+Print | Screenshot / region / annotation |
-| Super+Shift+R / Super+O | Quick recording / OBS (optional) |
+| Print / Super+Print / Alt+Print / Shift+Print | Screenshot / region / active window / annotation |
+| Super+Shift+R / Super+Ctrl+R / Super+Alt+R | Record region / focused screen / active window; any stops the current recording |
+| Super+O | OBS (optional) |
 | Device icons | Wi-Fi, Bluetooth, audio mixer, brightness/Night Light and battery/power settings |
 | Ctrl+Space | Japanese conversion on a US physical layout (single EN/あ indicator) |
 
